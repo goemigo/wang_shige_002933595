@@ -4,9 +4,12 @@
  */
 package UI;
 import Model.RecipeBlog;
+import java.awt.Image;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -63,8 +66,8 @@ public class CreatePanel extends javax.swing.JPanel {
         fieldDescription = new javax.swing.JTextField();
         fieldServing = new javax.swing.JTextField();
         fieldCategory = new javax.swing.JTextField();
-        fieldRecipePicture = new javax.swing.JTextField();
         browseBtn = new javax.swing.JButton();
+        fieldPic = new javax.swing.JLabel();
 
         jScrollPane2.setViewportView(jTextPane1);
 
@@ -173,11 +176,7 @@ public class CreatePanel extends javax.swing.JPanel {
                             .addComponent(fieldEmail)
                             .addComponent(fieldPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fieldRecipePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -191,10 +190,6 @@ public class CreatePanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(fieldCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fieldDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel8)
@@ -203,7 +198,15 @@ public class CreatePanel extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(fieldIsGlutenFree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(fieldRecipeTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldServing, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(fieldServing, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(fieldDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                                    .addComponent(fieldPic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(18, 18, 18)
                         .addComponent(browseBtn)))
                 .addContainerGap(32, Short.MAX_VALUE))
@@ -272,9 +275,11 @@ public class CreatePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
-                    .addComponent(fieldRecipePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66)
+                    .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(fieldPic, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(createButton)
                 .addGap(17, 17, 17))
         );
@@ -324,11 +329,21 @@ public class CreatePanel extends javax.swing.JPanel {
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         // TODO add your handling code here:
         JFileChooser browseImage = new JFileChooser();
+        //filter image extensions
+        FileNameExtensionFilter extFilter = new FileNameExtensionFilter("IMAGES","png","jpg","jpeg");
+        browseImage.addChoosableFileFilter(extFilter);
+        
         int showOpenDialog = browseImage.showOpenDialog(null);
         if (showOpenDialog == JFileChooser.APPROVE_OPTION){
             File selectedImage = browseImage.getSelectedFile();
             String selectedImagePath = selectedImage.getAbsolutePath();
             JOptionPane.showMessageDialog(null, selectedImagePath);
+            //display image on JPanel
+            ImageIcon ii = new ImageIcon(selectedImagePath);
+            //resize image to fit
+            Image image = ii.getImage().getScaledInstance(fieldPic.getWidth(), fieldPic.getHeight(),Image.SCALE_SMOOTH);
+            
+            fieldPic.setIcon(new ImageIcon(image));
         }
     }//GEN-LAST:event_browseBtnActionPerformed
     public boolean isGlutenFree(String s){
@@ -351,7 +366,7 @@ public class CreatePanel extends javax.swing.JPanel {
     private javax.swing.JTextField fieldLastName;
     private javax.swing.JTextField fieldNoOfIngredients;
     private javax.swing.JTextField fieldPhone;
-    private javax.swing.JTextField fieldRecipePicture;
+    private javax.swing.JLabel fieldPic;
     private javax.swing.JTextField fieldRecipeTitle;
     private javax.swing.JTextField fieldServing;
     private javax.swing.JTextField fieldUserName;
