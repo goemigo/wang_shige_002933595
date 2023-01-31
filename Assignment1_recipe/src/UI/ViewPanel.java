@@ -5,8 +5,9 @@
 package UI;
 
 import Model.RecipeBlog;
-import Model.UserInfo;
-
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 /**
  *
  * @author emi
@@ -16,21 +17,45 @@ public class ViewPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReadJPanel
      */
+    RecipeBlog recipeBlog;
+ 
     
-    UserInfo userInfo;
-    RecipeBlog recipe;
-    ContactInformation contact;
-    
-    public ViewPanel(UserInfo userInfo) {
+    public ViewPanel() {
         initComponents();
-        displayRecipe(userInfo);
     }
     
-    public void displayRecipe(UserInfo userInfo){
-        String chefFirstName = userInfo.getChefFirstName();
-        viewFirstName.setText(chefFirstName);
+    ViewPanel(RecipeBlog recipeBlog){
+        initComponents();
+        this.recipeBlog = recipeBlog;
+        
+        displayRecipe(recipeBlog);
     }
+    
+    public void displayRecipe(RecipeBlog recipeBlog){
+        viewFirstName.setText(recipeBlog.getUserInfo().getFirstName());
+        viewLastName.setText(recipeBlog.getUserInfo().getLastName());
+        viewUserName.setText(recipeBlog.getUserInfo().getUserName());
+        viewEmail.setText(recipeBlog.getUserInfo().getEmail());
+        viewPhone.setText(String.valueOf(recipeBlog.getUserInfo().getPhone()));
+        
+        viewTitle.setText(recipeBlog.getRecipeTitle());
+        viewServing.setText(String.valueOf(recipeBlog.getNumOfServing()));
+        viewIsGlutenFree.setText(isGlutenFree(recipeBlog.isIsGlutenFree()));
+        viewDifficultyLevel.setText(String.valueOf(recipeBlog.getDifficultyLevel()));
+        viewNoOfIngredients.setText(String.valueOf(recipeBlog.getNumOfIngredients()));
+        viewCategory.setText(recipeBlog.getCategoryOfFood());
+        viewDescription.setText(recipeBlog.getDescription());
+        viewPic.setIcon(new ImageIcon(recipeBlog.getRecipePicture()));
 
+    }
+    
+    public String isGlutenFree(boolean b){
+        if(b){
+            return "Yes";
+        }else{
+            return "No";
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,12 +162,11 @@ public class ViewPanel extends javax.swing.JPanel {
         viewCategory.setText("jLabel21");
 
         viewDescription.setText("jLabel21");
+        viewDescription.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         viewIsGlutenFree.setText("jLabel21");
 
         viewServing.setText("jLabel21");
-
-        viewPic.setText("jLabel16");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

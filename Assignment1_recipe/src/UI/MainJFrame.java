@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
-import Model.ContactInformation;
-import Model.UserInfo;
 import Model.RecipeBlog;
 
 
@@ -17,15 +15,12 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    
-    private UserInfo userInfo;
-    private ContactInformation contact;
-    private RecipeBlog recipe;
+    private RecipeBlog recipeBlog;
     
     public MainJFrame() {
+        this.setVisible(true);
         initComponents();
-        
-        userInfo = new UserInfo();//why?
+        this.recipeBlog = new RecipeBlog();
     }
 
     /**
@@ -118,20 +113,20 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         // TODO add your handling code here:
-        CreatePanel createPanel = new CreatePanel(userInfo);
+        CreatePanel createPanel = new CreatePanel(this.recipeBlog);
         splitPane.setRightComponent(createPanel);
         
     }//GEN-LAST:event_createButtonActionPerformed
 
     private void readButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readButtonActionPerformed
         // TODO add your handling code here:
-        ViewPanel readPanel = new ViewPanel(userInfo);
+        ViewPanel readPanel = new ViewPanel(this.recipeBlog);
         splitPane.setRightComponent(readPanel);
     }//GEN-LAST:event_readButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         // TODO add your handling code here:
-        UpdatePanel updatePanel = new UpdatePanel();
+        UpdatePanel updatePanel = new UpdatePanel(this.recipeBlog);
         splitPane.setRightComponent(updatePanel);
     }//GEN-LAST:event_updateButtonActionPerformed
 

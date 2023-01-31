@@ -4,6 +4,11 @@
  */
 package UI;
 
+import Model.RecipeBlog;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author emi
@@ -13,8 +18,19 @@ public class UpdatePanel extends javax.swing.JPanel {
     /**
      * Creates new form UpdateJPanel
      */
+    
+    private RecipeBlog recipeBlog;
+    private Image updateImage;
+    
     public UpdatePanel() {
         initComponents();
+    }
+    
+    UpdatePanel(RecipeBlog recipeBlog){
+        initComponents();
+        this.recipeBlog = recipeBlog;
+        
+        displayRecipe();
     }
 
     /**
@@ -46,16 +62,16 @@ public class UpdatePanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         updateNoOfIngredients = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        updateDesccription = new javax.swing.JTextField();
+        updateDescription = new javax.swing.JTextField();
         updateFirstName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         updateServing = new javax.swing.JTextField();
         updateCategory = new javax.swing.JTextField();
         updateLastName = new javax.swing.JTextField();
-        updatePic = new javax.swing.JTextField();
         updateUserName = new javax.swing.JTextField();
-        createButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
         updateBrowseBtn = new javax.swing.JButton();
+        updatePic = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(222, 249, 228));
 
@@ -110,13 +126,29 @@ public class UpdatePanel extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabel6.setText("Email Address");
 
+        updateDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateDescriptionActionPerformed(evt);
+            }
+        });
+
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabel7.setText("Phone");
 
-        createButton.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        createButton.setText("Update");
+        updateButton.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         updateBrowseBtn.setText("Browse");
+        updateBrowseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBrowseBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -133,19 +165,15 @@ public class UpdatePanel extends javax.swing.JPanel {
                             .addComponent(jLabel6)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(54, 54, 54)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(updateFirstName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                            .addComponent(updateFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(updateLastName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(updateUserName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(updateEmail)
-                            .addComponent(updatePhone)))
+                            .addComponent(updatePhone, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(updatePic, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -156,16 +184,12 @@ public class UpdatePanel extends javax.swing.JPanel {
                                 .addComponent(updateDifficultyLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(updateNoOfIngredients, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(updateCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(updateDesccription, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
@@ -173,14 +197,22 @@ public class UpdatePanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(updateTitle)
-                                    .addComponent(updateServing, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))))
+                                    .addComponent(updateServing, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(updateDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                                    .addComponent(updatePic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(updateBrowseBtn)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(createButton)
+                .addComponent(updateButton)
                 .addGap(275, 275, 275))
         );
         layout.setVerticalGroup(
@@ -243,14 +275,14 @@ public class UpdatePanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(updateDesccription, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
+                    .addComponent(updateDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(updatePic, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(updateBrowseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(createButton)
+                    .addComponent(updateBrowseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updatePic, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateButton)
                 .addGap(17, 17, 17))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -259,9 +291,85 @@ public class UpdatePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_updateTitleActionPerformed
 
+    private void updateBrowseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBrowseBtnActionPerformed
+        // TODO add your handling code here:
+        GetSelectedImage getImage = new GetSelectedImage();
+        this.updateImage = getImage.getSelectedImage(updatePic);        
+        updatePic.setIcon(new ImageIcon(updateImage));
 
+    }//GEN-LAST:event_updateBrowseBtnActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        //collect new user input
+        String email = updateEmail.getText();
+        long phone = Long.valueOf(updatePhone.getText());
+        String title = updateTitle.getText();
+        int numOfServing = Integer.valueOf(updateServing.getText());
+        boolean isGlutenFree = toBooleanGlutenFree(updateIsGlutenFree.getText());
+        float difficultyLevel = Float.valueOf(updateDifficultyLevel.getText());
+        int numOfIngredients = Integer.valueOf(updateNoOfIngredients.getText());
+        String category = updateCategory.getText();
+        String description = updateDescription.getText();
+        
+        //store data to recipe
+        recipeBlog.getUserInfo().setEmail(email);
+        recipeBlog.getUserInfo().setPhone(phone);
+        recipeBlog.setRecipeTitle(title);
+        recipeBlog.setNumOfServing(numOfServing);
+        recipeBlog.setIsGlutenFree(isGlutenFree);
+        recipeBlog.setDifficultyLevel(difficultyLevel);
+        recipeBlog.setNumOfIngredients(numOfIngredients);
+        recipeBlog.setCategoryOfFood(category);
+        recipeBlog.setDescription(description);
+        recipeBlog.setRecipePicture(updateImage); //this.image has been given a value when browse
+        
+        //pop a response message when user click create button
+        JOptionPane.showMessageDialog(null,"Updated Successfully!");
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void updateDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDescriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateDescriptionActionPerformed
+
+    public void displayRecipe(){
+        updateFirstName.setText(recipeBlog.getUserInfo().getFirstName());
+        updateLastName.setText(recipeBlog.getUserInfo().getLastName());
+        updateUserName.setText(recipeBlog.getUserInfo().getUserName());
+        updateEmail.setText(recipeBlog.getUserInfo().getEmail());
+        updatePhone.setText(String.valueOf(recipeBlog.getUserInfo().getPhone()));
+        
+        updateTitle.setText(recipeBlog.getRecipeTitle());
+        updateServing.setText(String.valueOf(recipeBlog.getNumOfServing()));
+        updateIsGlutenFree.setText(toStringGlutenFree(recipeBlog.isIsGlutenFree()));
+        updateDifficultyLevel.setText(String.valueOf(recipeBlog.getDifficultyLevel()));
+        updateNoOfIngredients.setText(String.valueOf(recipeBlog.getNumOfIngredients()));
+        updateCategory.setText(recipeBlog.getCategoryOfFood());
+        updateDescription.setText(recipeBlog.getDescription());
+        updatePic.setIcon(new ImageIcon(recipeBlog.getRecipePicture()));
+        
+        //so not allow changes for below fields
+        updateFirstName.setEditable(false);
+        updateLastName.setEditable(false);
+        updateUserName.setEditable(false);
+    }
+    
+    public String toStringGlutenFree(boolean b){
+        if(b){
+            return "Yes";
+        }else{
+            return "No";
+        }
+    }
+    
+    public boolean toBooleanGlutenFree(String s){
+        if (s.equalsIgnoreCase("Yes")){
+            return true;
+        }else{
+            return false;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -278,8 +386,9 @@ public class UpdatePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton updateBrowseBtn;
+    private javax.swing.JButton updateButton;
     private javax.swing.JTextField updateCategory;
-    private javax.swing.JTextField updateDesccription;
+    private javax.swing.JTextField updateDescription;
     private javax.swing.JTextField updateDifficultyLevel;
     private javax.swing.JTextField updateEmail;
     private javax.swing.JTextField updateFirstName;
@@ -287,7 +396,7 @@ public class UpdatePanel extends javax.swing.JPanel {
     private javax.swing.JTextField updateLastName;
     private javax.swing.JTextField updateNoOfIngredients;
     private javax.swing.JTextField updatePhone;
-    private javax.swing.JTextField updatePic;
+    private javax.swing.JLabel updatePic;
     private javax.swing.JTextField updateServing;
     private javax.swing.JTextField updateTitle;
     private javax.swing.JTextField updateUserName;

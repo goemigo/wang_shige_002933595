@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.awt.Image;
 import java.io.File;
 
 /**
@@ -19,11 +20,11 @@ public class RecipeBlog {
     int numOfIngredients;
     String categoryOfFood;
     String description;
-    File recipePicture; // either store the File Path/ File Object
+    Image recipePicture; // either store the File Path/ File Object
     UserInfo userInfo;
     
     public RecipeBlog(){
-        UserInfo userInfo = new UserInfo();
+        this.userInfo = new UserInfo(); //use this., do not initialize new one to avoid nullPointer
     }
 
     public String getRecipeTitle() {
@@ -74,14 +75,6 @@ public class RecipeBlog {
         this.description = description;
     }
 
-    public File getRecipePicture() {
-        return recipePicture;
-    }
-
-    public void setRecipePicture(File recipePicture) {
-        this.recipePicture = recipePicture;
-    }
-
     public boolean isIsGlutenFree() {
         return isGlutenFree;
     }
@@ -90,9 +83,17 @@ public class RecipeBlog {
         this.isGlutenFree = isGlutenFree;
     }
     
-    
-    
     public UserInfo getUserInfo() {
         return userInfo;
     }
+
+    public Image getRecipePicture() {
+        return recipePicture;
+    }
+
+    public void setRecipePicture(Image recipePicture) {
+        this.recipePicture = recipePicture;
+    }
+    
+    
 }

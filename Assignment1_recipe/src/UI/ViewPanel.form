@@ -320,6 +320,7 @@
     <Component class="javax.swing.JLabel" name="viewDescription">
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel21"/>
+        <Property name="verticalAlignment" type="int" value="1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="viewIsGlutenFree">
@@ -333,9 +334,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="viewPic">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel16"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
