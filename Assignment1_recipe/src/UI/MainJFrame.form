@@ -76,7 +76,7 @@
             <Component class="javax.swing.JButton" name="createButton">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="e8" type="rgb"/>
+                  <Color blue="a6" green="d1" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Create"/>
               </Properties>
@@ -87,7 +87,7 @@
             <Component class="javax.swing.JButton" name="readButton">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="e8" type="rgb"/>
+                  <Color blue="a6" green="d1" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Read"/>
               </Properties>
@@ -98,7 +98,7 @@
             <Component class="javax.swing.JButton" name="updateButton">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="e8" type="rgb"/>
+                  <Color blue="a6" green="d1" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Update"/>
               </Properties>

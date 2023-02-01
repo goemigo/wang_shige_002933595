@@ -5,8 +5,6 @@
 package UI;
 
 import Model.RecipeBlog;
-import java.awt.Image;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 /**
  *

@@ -43,7 +43,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         controlJPanel.setBackground(new java.awt.Color(210, 237, 210));
 
-        createButton.setBackground(new java.awt.Color(232, 255, 204));
+        createButton.setBackground(new java.awt.Color(255, 209, 166));
         createButton.setText("Create");
         createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +51,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        readButton.setBackground(new java.awt.Color(232, 255, 204));
+        readButton.setBackground(new java.awt.Color(255, 209, 166));
         readButton.setText("Read");
         readButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +59,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        updateButton.setBackground(new java.awt.Color(232, 255, 204));
+        updateButton.setBackground(new java.awt.Color(255, 209, 166));
         updateButton.setText("Update");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

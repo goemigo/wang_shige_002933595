@@ -29,6 +29,7 @@ public class UpdatePanel extends javax.swing.JPanel {
     UpdatePanel(RecipeBlog recipeBlog){
         initComponents();
         this.recipeBlog = recipeBlog;
+        this.updateImage = recipeBlog.getRecipePicture();
         
         displayRecipe();
     }
@@ -302,30 +303,42 @@ public class UpdatePanel extends javax.swing.JPanel {
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         // TODO add your handling code here:
         //collect new user input
+        String firstName = updateFirstName.getText();
+        String lastName = updateLastName.getText();
+        String userName = updateUserName.getText();
         String email = updateEmail.getText();
-        long phone = Long.valueOf(updatePhone.getText());
+        String phone =updatePhone.getText();
         String title = updateTitle.getText();
-        int numOfServing = Integer.valueOf(updateServing.getText());
-        boolean isGlutenFree = toBooleanGlutenFree(updateIsGlutenFree.getText());
-        float difficultyLevel = Float.valueOf(updateDifficultyLevel.getText());
-        int numOfIngredients = Integer.valueOf(updateNoOfIngredients.getText());
+        String numOfServing =updateServing.getText();
+        String isGlutenFree =updateIsGlutenFree.getText();
+        String difficultyLevel =updateDifficultyLevel.getText();
+        String numOfIngredients = updateNoOfIngredients.getText();
         String category = updateCategory.getText();
         String description = updateDescription.getText();
         
+        Verify verify=new Verify();
+        verify.checkNullValue(firstName,lastName,userName,email,phone,title
+                ,numOfServing,isGlutenFree,difficultyLevel,numOfIngredients,category
+                ,description
+                ,updateImage);
+        verify.checkFormat(firstName,lastName,userName,email,phone
+                ,numOfServing,isGlutenFree,difficultyLevel,numOfIngredients);
+        
         //store data to recipe
         recipeBlog.getUserInfo().setEmail(email);
-        recipeBlog.getUserInfo().setPhone(phone);
+        recipeBlog.getUserInfo().setPhone(Long.valueOf(phone));
         recipeBlog.setRecipeTitle(title);
-        recipeBlog.setNumOfServing(numOfServing);
-        recipeBlog.setIsGlutenFree(isGlutenFree);
-        recipeBlog.setDifficultyLevel(difficultyLevel);
-        recipeBlog.setNumOfIngredients(numOfIngredients);
+        recipeBlog.setNumOfServing(Integer.valueOf(numOfServing));
+        recipeBlog.setIsGlutenFree(toBooleanGlutenFree(isGlutenFree));
+        recipeBlog.setDifficultyLevel(Float.valueOf(difficultyLevel));
+        recipeBlog.setNumOfIngredients(Integer.valueOf(numOfIngredients));
         recipeBlog.setCategoryOfFood(category);
         recipeBlog.setDescription(description);
         recipeBlog.setRecipePicture(updateImage); //this.image has been given a value when browse
         
         //pop a response message when user click create button
-        JOptionPane.showMessageDialog(null,"Updated Successfully!");
+//        JOptionPane.showMessageDialog(null,"Updated Successfully!");
+        verify.showIfSaved();
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void updateDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDescriptionActionPerformed

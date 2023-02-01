@@ -5,11 +5,8 @@
 package UI;
 import Model.RecipeBlog;
 import java.awt.Image;
-import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -155,10 +152,6 @@ public class CreatePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(createButton)
-                .addGap(275, 275, 275))
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,8 +191,10 @@ public class CreatePanel extends javax.swing.JPanel {
                             .addComponent(fieldLastName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(fieldUserName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(fieldEmail)
-                            .addComponent(fieldPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(118, Short.MAX_VALUE))
+                            .addComponent(fieldPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(createButton)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +214,9 @@ public class CreatePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(fieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(createButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,9 +266,7 @@ public class CreatePanel extends javax.swing.JPanel {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(createButton)
-                .addGap(17, 17, 17))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -281,59 +276,57 @@ public class CreatePanel extends javax.swing.JPanel {
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         // TODO add your handling code here:
-        //collect user input
+        //collect user input   
+        //use all String for now, move the format cast after checking null value to avoid error before validation
         String firstName = fieldFirstName.getText();
         String lastName = fieldLastName.getText();
         String userName = fieldUserName.getText();
         String email = fieldEmail.getText();
-        long phone = Long.valueOf(fieldPhone.getText());
-        
+        String phone = fieldPhone.getText();
         String title = fieldRecipeTitle.getText();
-        int numOfServing = Integer.valueOf(fieldServing.getText());
-        boolean isGlutenFree = toBooleanGlutenFree(fieldIsGlutenFree.getText());
-        float difficultyLevel = Float.valueOf(fieldDifficultyLevel.getText());
-        int numOfIngredients = Integer.valueOf(fieldNoOfIngredients.getText());
+        String numOfServing = fieldServing.getText();
+        String isGlutenFree = fieldIsGlutenFree.getText();
+        String difficultyLevel = fieldDifficultyLevel.getText();
+        String numOfIngredients = fieldNoOfIngredients.getText();
         String category = fieldCategory.getText();
         String description = fieldDescription.getText();
         
-        //store data to recipe
+        //check for null input and input format
+        Verify verify=new Verify();
+        verify.checkNullValue(firstName,lastName,userName,email,phone,title
+                ,numOfServing,isGlutenFree,difficultyLevel,numOfIngredients,category
+                ,description
+                ,image);
+        verify.checkFormat(firstName,lastName,userName,email,phone
+                ,numOfServing,isGlutenFree,difficultyLevel,numOfIngredients);
+        
+        
+//store data to recipe
         recipeBlog.getUserInfo().setFirstName(firstName);
         recipeBlog.getUserInfo().setLastName(lastName);
         recipeBlog.getUserInfo().setUserName(userName);
         recipeBlog.getUserInfo().setEmail(email);
-        recipeBlog.getUserInfo().setPhone(phone);
-        
+        recipeBlog.getUserInfo().setPhone(Long.parseLong(phone));
         recipeBlog.setRecipeTitle(title);
-        recipeBlog.setNumOfServing(numOfServing);
-        recipeBlog.setIsGlutenFree(isGlutenFree);
-        recipeBlog.setDifficultyLevel(difficultyLevel);
-        recipeBlog.setNumOfIngredients(numOfIngredients);
+        recipeBlog.setNumOfServing(Integer.valueOf(numOfServing));
+        recipeBlog.setIsGlutenFree(toBooleanGlutenFree(isGlutenFree));
+        recipeBlog.setDifficultyLevel(Float.valueOf(difficultyLevel));
+        recipeBlog.setNumOfIngredients(Integer.valueOf(numOfIngredients));
         recipeBlog.setCategoryOfFood(category);
         recipeBlog.setDescription(description);
         recipeBlog.setRecipePicture(image); //this.image has been given a value when browse
         
+        
         //pop a response message when user click create button
-        JOptionPane.showMessageDialog(null,"Created Successfully!");
-    }//GEN-LAST:event_createButtonActionPerformed
-    
-//    public Image getSelectedImage(){
-//        
-//        browseImage = new JFileChooser();
-//        Image image = null;
-//        //filter image extensions
-//        FileNameExtensionFilter extFilter = new FileNameExtensionFilter("IMAGES","png","jpg","jpeg");
-//        browseImage.addChoosableFileFilter(extFilter);
-//        
-//        int showOpenDialog = browseImage.showOpenDialog(null);
-//        if (showOpenDialog == JFileChooser.APPROVE_OPTION){
-//            File selectedImage = browseImage.getSelectedFile();
-//            String selectedImagePath = selectedImage.getAbsolutePath();
-//            ImageIcon ii = new ImageIcon(selectedImagePath);
-//            image = ii.getImage().getScaledInstance(fieldPic.getWidth(), fieldPic.getHeight(),Image.SCALE_SMOOTH);
+        verify.showIfSaved();
+//        if(Validation.checkNullValue(firstName)){
+//            JOptionPane.showMessageDialog(null,"Created Successfully!");
+//        }else{
+//            JOptionPane.showMessageDialog(null,"Please fill all fields!");
 //        }
-//        return image;
-//    } 
-    
+              
+    }//GEN-LAST:event_createButtonActionPerformed
+  
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         // TODO add your handling code here:
         GetSelectedImage getImage = new GetSelectedImage();
