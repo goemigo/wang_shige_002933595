@@ -22,7 +22,6 @@ public class Verify {
         ArrayList<Object> fieldList = new ArrayList();
         for (Object arg: args){
             if (arg == null){   // .euqals("") or isEmpty() do not work for the image object, thus use ==null
-//                JOptionPane.showMessageDialog(null,"Please fill all fields!");
                 verifiedNoNull = false;
                 break;
             }
@@ -31,29 +30,14 @@ public class Verify {
                 if(args.length != fieldList.size()){
                     verifiedNoNull = true;
                 }
-//                    try{
-//                        //if no null value, then check input format
-//                        checkFormat(fieldList.get(6));//add all fields
-//                        JOptionPane.showMessageDialog(null,"Saved Successfully!");
-//                    }catch(Exception e){
-//                        JOptionPane.showMessageDialog(null,"Pleasee Check Input Format! ");
-//                    }
-                }
-//            }   
+            }
         }
         showIfNull();
     }
     
     public void checkFormat(String fn, String ln, String un, String email, String phone
                                 ,String serving, String isGlutenFree,String difLevel, String ingredients){
-//        boolean verifiedFormat;
 
-//        try{
-//            Integer.valueOf((String) arg);
-//            JOptionPane.showMessageDialog(null,"format correct!");
-//        }catch(Exception e){
-//            JOptionPane.showMessageDialog(null,"wrong format!");
-//        }
         Pattern onlyBlankAndLetters = Pattern.compile("[A-Za-z]*");
         Pattern onlyInt = Pattern.compile("[0-9]*");
 //        Pattern oneToFiveFloat = Pattern.compile("[1-5][.][0-9]"); 
@@ -82,16 +66,11 @@ public class Verify {
                 && Float.valueOf(difLevel) >1 && Float.valueOf(difLevel) < 5
                 && Integer.valueOf(ingredients) > 0
                 ){
-//            System.out.println("format correct");
-//            System.out.println("---");
-//            System.out.println(verifiedFormat);
-//            
             verifiedFormat = true;
-        
         }else{
             verifiedFormat =false;
         }
-//        System.out.println(serving);
+
         showIfFormatCorrect();
         
     }
@@ -103,7 +82,6 @@ public class Verify {
     }
     
     public void showIfFormatCorrect(){
-//        System.out.println(verifiedFormat);
         if (!verifiedFormat){
             JOptionPane.showMessageDialog(null,"Please Check Input Format!");
         } 

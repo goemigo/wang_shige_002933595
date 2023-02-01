@@ -6,7 +6,6 @@ package UI;
 import Model.RecipeBlog;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -300,8 +299,7 @@ public class CreatePanel extends javax.swing.JPanel {
         verify.checkFormat(firstName,lastName,userName,email,phone
                 ,numOfServing,isGlutenFree,difficultyLevel,numOfIngredients);
         
-        
-//store data to recipe
+        //store data to recipe
         recipeBlog.getUserInfo().setFirstName(firstName);
         recipeBlog.getUserInfo().setLastName(lastName);
         recipeBlog.getUserInfo().setUserName(userName);
@@ -319,11 +317,6 @@ public class CreatePanel extends javax.swing.JPanel {
         
         //pop a response message when user click create button
         verify.showIfSaved();
-//        if(Validation.checkNullValue(firstName)){
-//            JOptionPane.showMessageDialog(null,"Created Successfully!");
-//        }else{
-//            JOptionPane.showMessageDialog(null,"Please fill all fields!");
-//        }
               
     }//GEN-LAST:event_createButtonActionPerformed
   

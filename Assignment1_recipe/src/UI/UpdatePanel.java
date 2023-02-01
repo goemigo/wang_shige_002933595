@@ -7,7 +7,6 @@ package UI;
 import Model.RecipeBlog;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -316,6 +315,7 @@ public class UpdatePanel extends javax.swing.JPanel {
         String category = updateCategory.getText();
         String description = updateDescription.getText();
         
+        //verify new input
         Verify verify=new Verify();
         verify.checkNullValue(firstName,lastName,userName,email,phone,title
                 ,numOfServing,isGlutenFree,difficultyLevel,numOfIngredients,category
@@ -334,10 +334,8 @@ public class UpdatePanel extends javax.swing.JPanel {
         recipeBlog.setNumOfIngredients(Integer.valueOf(numOfIngredients));
         recipeBlog.setCategoryOfFood(category);
         recipeBlog.setDescription(description);
-        recipeBlog.setRecipePicture(updateImage); //this.image has been given a value when browse
+        recipeBlog.setRecipePicture(updateImage); 
         
-        //pop a response message when user click create button
-//        JOptionPane.showMessageDialog(null,"Updated Successfully!");
         verify.showIfSaved();
     }//GEN-LAST:event_updateButtonActionPerformed
 
@@ -361,7 +359,7 @@ public class UpdatePanel extends javax.swing.JPanel {
         updateDescription.setText(recipeBlog.getDescription());
         updatePic.setIcon(new ImageIcon(recipeBlog.getRecipePicture()));
         
-        //so not allow changes for below fields
+        //do not allow changes for below fields
         updateFirstName.setEditable(false);
         updateLastName.setEditable(false);
         updateUserName.setEditable(false);
