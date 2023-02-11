@@ -5,8 +5,7 @@
 package UI;
 
 import Model.Business;
-import Model.InsurancePlan;
-import Model.InsurancePlanDirectory;
+import Model.InsurancePlanCatalog;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +17,7 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateInsurancePanel
      */
-    Business business;
+    private Business business;
     
     public CreateInsurancePanel() {
         initComponents();
@@ -63,9 +62,15 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
 
         jLabel5.setText("Cost Per Month");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, 30));
+
+        fieldCostPerAnnum.setEditable(false);
         add(fieldCostPerAnnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 110, -1));
 
-        fieldPlanId.setText(" ");
+        fieldPlanId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldPlanIdActionPerformed(evt);
+            }
+        });
         add(fieldPlanId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 110, -1));
         add(fieldPlanName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 110, -1));
 
@@ -90,26 +95,35 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
 
     private void btnCreateInsurancePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateInsurancePlanActionPerformed
         // TODO add your handling code here:
-        InsurancePlanDirectory insuranceDirectory = this.business.getInsurancePlanDirectory();
+        InsurancePlanCatalog insuranceDirectory = this.business.getInsurancePlanDirectory();
         
         String id = fieldPlanId.getText();
         String name = fieldPlanName.getText();
         String costPerMonth = fieldCostPerMonth.getText();
-        String costPerAnnum = fieldCostPerAnnum.getText();
+//        String costPerAnnum = fieldCostPerAnnum.getText();
         
-        insuranceDirectory.createInsurancePlan(Integer.valueOf(id),name,Float.valueOf(costPerMonth),Float.valueOf(costPerAnnum));
+        insuranceDirectory.createInsurancePlan(Integer.valueOf(id),name,Float.valueOf(costPerMonth));
 //        this.planCreated.setCostPerAnnum(Float.valueOf(fieldCostPerAnnum.getText()));
         JOptionPane.showMessageDialog(null,"saved");
     }//GEN-LAST:event_btnCreateInsurancePlanActionPerformed
 
     private void fieldCostPerMonthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldCostPerMonthFocusLost
-        // TODO add your handling code here:
-        float costPerMonthSet = Float.valueOf(fieldCostPerMonth.getText());
+        // TODO add your handling code here
         
-        fieldCostPerAnnum.setText(String.valueOf(costPerMonthSet*12));
+        showCostPerAnnum();
         
     }//GEN-LAST:event_fieldCostPerMonthFocusLost
 
+    private void fieldPlanIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPlanIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldPlanIdActionPerformed
+    
+    public void showCostPerAnnum(){
+        //this calculation does not affect the number saved to back-end, only for showing in create page
+        float costPerMonth = Float.valueOf(fieldCostPerMonth.getText());
+        float costPerAnnum = costPerMonth*12;
+        fieldCostPerAnnum.setText(String.valueOf(costPerAnnum));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateInsurancePlan;

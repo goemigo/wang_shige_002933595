@@ -9,16 +9,17 @@ package Model;
  * @author emi
  */
 public class InsurancePlan {
-    int planId;
-    String planName;
-    float costPerMonth;
-    float costPerAnnum;
+    private int planId;
+    private String planName;
+    private float costPerMonth;
+    private float costPerAnnum;
     
-    public InsurancePlan(int id, String name, float costPerMonth, float costPerAnnum){
+    public InsurancePlan(int id, String name, float costPerMonth){
         this.planId = id;
         this.planName = name;
         this.costPerMonth = costPerMonth;
-        this.costPerAnnum = costPerAnnum;
+        
+        this.calCostPerAnnum(costPerMonth);
      
     }
 
@@ -46,11 +47,20 @@ public class InsurancePlan {
         this.costPerMonth = costPerMonth;
     }
     
-    public void setCostPerAnnum(float costPerAnnum){
-        this.costPerAnnum = costPerAnnum;
-    }
+//    public void setCostPerAnnum(float costPerAnnum){
+//        this.costPerAnnum = costPerAnnum;
+//    }
     
     public float getCostPerAnnum(){
         return costPerAnnum;
+    }
+    
+    public void calCostPerAnnum(float costPerMonth){
+        this.costPerAnnum = costPerMonth*12;
+    }
+    
+    @Override
+    public String toString(){
+        return String.valueOf(this.planId);
     }
 }

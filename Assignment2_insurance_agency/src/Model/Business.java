@@ -11,18 +11,18 @@ package Model;
  */
 public class Business {
     ApplicantDirectory applicantDirectory;
-    InsurancePlanDirectory insurancePlanDirectory;
+    InsurancePlanCatalog insurancePlanDirectory;
     
     public Business(){
         this.applicantDirectory = new ApplicantDirectory();
-        this.insurancePlanDirectory = new InsurancePlanDirectory();
+        this.insurancePlanDirectory = new InsurancePlanCatalog();
     }
 
     public ApplicantDirectory getApplicantDirectory() {
         return applicantDirectory;
     }
 
-    public InsurancePlanDirectory getInsurancePlanDirectory() {
+    public InsurancePlanCatalog getInsurancePlanDirectory() {
         return insurancePlanDirectory;
     }
     

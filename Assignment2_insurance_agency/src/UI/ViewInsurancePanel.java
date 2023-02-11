@@ -4,6 +4,12 @@
  */
 package UI;
 
+import Model.Business;
+import Model.InsurancePlan;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author emi
@@ -13,8 +19,22 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewInsurancePanel
      */
+    
+    private Business business;
+    DefaultTableModel insuranceTableModel;
+    private InsurancePlan selectedInsurance;
+    
     public ViewInsurancePanel() {
         initComponents();
+    }
+    
+    public  ViewInsurancePanel(Business business){
+        initComponents();
+        
+        this.business = business;
+        this.insuranceTableModel = (DefaultTableModel) tableInsuranceCatalog.getModel();
+        
+        displayInsuranceCatlog();
     }
 
     /**
@@ -37,7 +57,8 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
         btnUpdateInsurancePlan = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableInsurancePlan = new javax.swing.JTable();
+        tableInsuranceCatalog = new javax.swing.JTable();
+        btnViewPlan = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 153));
 
@@ -49,14 +70,27 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
 
         jLabel5.setText("Cost Per Month");
 
+        viewCostPerAnnum.setEditable(false);
+
         viewPlanId.setEditable(false);
         viewPlanId.setText(" ");
 
+        viewCostPerMonth.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                viewCostPerMonthFocusLost(evt);
+            }
+        });
+
         btnUpdateInsurancePlan.setText("Update Plan");
+        btnUpdateInsurancePlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateInsurancePlanActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("View And Update Insurance Plans");
 
-        tableInsurancePlan.setModel(new javax.swing.table.DefaultTableModel(
+        tableInsuranceCatalog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -75,7 +109,14 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableInsurancePlan);
+        jScrollPane1.setViewportView(tableInsuranceCatalog);
+
+        btnViewPlan.setText("View Plan Details");
+        btnViewPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewPlanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -85,29 +126,34 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(57, 57, 57)
-                        .addComponent(viewPlanName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(30, 30, 30)
-                        .addComponent(viewCostPerMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(80, 80, 80)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(viewPlanId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(26, 26, 26)
-                        .addComponent(viewCostPerAnnum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(viewPlanId, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(53, 53, 53)
-                        .addComponent(btnUpdateInsurancePlan)))
+                        .addComponent(btnUpdateInsurancePlan))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(26, 26, 26)
+                            .addComponent(viewCostPerAnnum))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(30, 30, 30)
+                            .addComponent(viewCostPerMonth))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(57, 57, 57)
+                            .addComponent(viewPlanName, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnViewPlan)
+                .addGap(125, 125, 125))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,20 +182,92 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnViewPlan)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnViewPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPlanActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tableInsuranceCatalog.getSelectedRow();
+        
+        if (selectedRow >= 0){
+            this.selectedInsurance = (InsurancePlan) tableInsuranceCatalog.getValueAt(selectedRow, 0);
+            
+            viewPlanId.setText(String.valueOf(selectedInsurance.getPlanId()));
+            viewPlanName.setText(selectedInsurance.getPlanName());
+            viewCostPerMonth.setText(String.valueOf(selectedInsurance.getCostPerMonth()));
+            viewCostPerAnnum.setText(String.valueOf(selectedInsurance.getCostPerAnnum()));
+        }else{
+            JOptionPane.showMessageDialog(null,"Please select a row!");
+        }
+    }//GEN-LAST:event_btnViewPlanActionPerformed
+
+    private void btnUpdateInsurancePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateInsurancePlanActionPerformed
+        // TODO add your handling code here:
+        //id does not permit update
+        if(!viewPlanId.getText().isEmpty()){
+            String name = viewPlanName.getText();      
+            String costPerMonth = viewCostPerMonth.getText();
+            
+            showCostPerAnnum();
+            viewCostPerAnnum.getText();
+            
+            this.selectedInsurance.setPlanName(name);
+            this.selectedInsurance.setCostPerMonth(Float.valueOf(costPerMonth));
+            this.selectedInsurance.calCostPerAnnum(Float.valueOf(costPerMonth));
+            
+            JOptionPane.showMessageDialog(null,"Updated");
+        }else{
+            JOptionPane.showMessageDialog(null,"Please select a row!");
+        }
+        
+        displayInsuranceCatlog();
+
+    }//GEN-LAST:event_btnUpdateInsurancePlanActionPerformed
+
+    private void viewCostPerMonthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewCostPerMonthFocusLost
+        // TODO add your handling code here:
+        showCostPerAnnum();
+    }//GEN-LAST:event_viewCostPerMonthFocusLost
+    
+    public void displayInsuranceCatlog(){
+        ArrayList<InsurancePlan> insuranceCatalog = this.business.getInsurancePlanDirectory().getInsurancePlans();
+        
+        if(insuranceCatalog.size()>0){
+            insuranceTableModel.setRowCount(0);
+            
+            for(InsurancePlan ip: insuranceCatalog){
+                Object row[] = new Object[2];
+                row[0] = ip;//otherwise it sill shhow an object in the table
+                row[1] = ip.getPlanName();
+                
+                this.insuranceTableModel.addRow(row);
+            }
+        }else{
+            System.out.println("Empty catalog");
+        }
+            
+    }
+    
+    public void showCostPerAnnum(){
+        //this calculation does not affect the number saved to back-end, only for showing in create page
+        float costPerMonth = Float.valueOf(viewCostPerMonth.getText());
+        float costPerAnnum = costPerMonth*12;
+        viewCostPerAnnum.setText(String.valueOf(costPerAnnum));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUpdateInsurancePlan;
+    private javax.swing.JButton btnViewPlan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableInsurancePlan;
+    private javax.swing.JTable tableInsuranceCatalog;
     private javax.swing.JTextField viewCostPerAnnum;
     private javax.swing.JTextField viewCostPerMonth;
     private javax.swing.JTextField viewPlanId;

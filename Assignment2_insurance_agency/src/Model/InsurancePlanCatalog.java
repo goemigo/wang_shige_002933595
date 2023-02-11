@@ -10,10 +10,10 @@ import java.util.ArrayList;
  *
  * @author emi
  */
-public class InsurancePlanDirectory {
-    ArrayList<InsurancePlan> insurancePlans;
+public class InsurancePlanCatalog {
+    private ArrayList<InsurancePlan> insurancePlans;
     
-    public InsurancePlanDirectory(){
+    public InsurancePlanCatalog(){
         this.insurancePlans = new ArrayList<InsurancePlan>();
     }
 
@@ -21,8 +21,8 @@ public class InsurancePlanDirectory {
         return insurancePlans;
     }
     
-    public InsurancePlan createInsurancePlan(int id, String name, float costPerMonth, float costPerAnnum){
-        InsurancePlan plan = new InsurancePlan(id,name,costPerMonth,costPerAnnum);  
+    public InsurancePlan createInsurancePlan(int id, String name, float costPerMonth){
+        InsurancePlan plan = new InsurancePlan(id,name,costPerMonth);  
         this.insurancePlans.add(plan);
         return plan;
     }
