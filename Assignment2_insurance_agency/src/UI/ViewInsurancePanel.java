@@ -240,7 +240,7 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
             
             for(InsurancePlan ip: insuranceCatalog){
                 Object row[] = new Object[2];
-                row[0] = ip;//otherwise it sill shhow an object in the table
+                row[0] = ip;//must have an Override toString to avoid showing an object in the table
                 row[1] = ip.getPlanName();
                 
                 this.insuranceTableModel.addRow(row);

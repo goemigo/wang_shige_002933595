@@ -26,4 +26,14 @@ public class InsurancePlanCatalog {
         this.insurancePlans.add(plan);
         return plan;
     }
+    
+    public Boolean checkInsuranceIdUnique(int id){
+        for (InsurancePlan ip: insurancePlans){
+            if(ip.getPlanId() == id){
+                return false;
+            }
+        }
+        return true;
+    }
+    
 }

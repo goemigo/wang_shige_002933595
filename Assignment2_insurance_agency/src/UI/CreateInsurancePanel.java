@@ -52,34 +52,39 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Plan Id");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, -1));
 
         jLabel3.setText("Plan Name");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, 20));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, 20));
 
         jLabel4.setText("Cost Per Annum");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, -1, 30));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, 30));
 
         jLabel5.setText("Cost Per Month");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, 30));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, 30));
 
         fieldCostPerAnnum.setEditable(false);
-        add(fieldCostPerAnnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 110, -1));
+        add(fieldCostPerAnnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 110, -1));
 
+        fieldPlanId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldPlanIdFocusLost(evt);
+            }
+        });
         fieldPlanId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldPlanIdActionPerformed(evt);
             }
         });
-        add(fieldPlanId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 110, -1));
-        add(fieldPlanName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 110, -1));
+        add(fieldPlanId, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 110, -1));
+        add(fieldPlanName, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 110, -1));
 
         fieldCostPerMonth.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 fieldCostPerMonthFocusLost(evt);
             }
         });
-        add(fieldCostPerMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 110, -1));
+        add(fieldCostPerMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 110, -1));
 
         btnCreateInsurancePlan.setText("Create");
         btnCreateInsurancePlan.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +122,17 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
     private void fieldPlanIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPlanIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPlanIdActionPerformed
+
+    private void fieldPlanIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldPlanIdFocusLost
+        // TODO add your handling code here:
+        int id = Integer.valueOf(fieldPlanId.getText());
+        Boolean idUnique = this.business.getInsurancePlanDirectory().checkInsuranceIdUnique(id);
+        
+        if(!idUnique){
+            fieldPlanId.setText("");
+            JOptionPane.showMessageDialog(null,"Plan id already exists");
+        }
+    }//GEN-LAST:event_fieldPlanIdFocusLost
     
     public void showCostPerAnnum(){
         //this calculation does not affect the number saved to back-end, only for showing in create page
