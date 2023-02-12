@@ -13,7 +13,13 @@ public class Vaccination {
     Boolean courseCompleted;
     
     public Vaccination(){
-        this.vaccineName = "N/A";
+        this.vaccineName = "N/A"; //default value
+        this.courseCompleted = false;
+    }
+    
+    public Vaccination(String name, Boolean completed){
+        this.vaccineName = name;
+        this.courseCompleted = completed;
     }
 
     public String getVaccineName() {

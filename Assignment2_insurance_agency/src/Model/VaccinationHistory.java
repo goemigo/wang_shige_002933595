@@ -21,5 +21,10 @@ public class VaccinationHistory {
         return vaccinationhistory;
     }
     
+    public Vaccination addVaccine(String name,Boolean completed){
+        Vaccination vac = new Vaccination(name,completed);
+        vaccinationhistory.add(vac);
+        return vac;
+    }
     
 }

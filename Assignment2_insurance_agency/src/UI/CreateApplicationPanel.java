@@ -4,6 +4,16 @@
  */
 package UI;
 
+import Model.Applicant;
+import Model.ApplicantDirectory;
+import Model.Business;
+import Model.InsurancePlan;
+import Model.Pet;
+import Model.Vaccination;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author emi
@@ -13,9 +23,22 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateApplicationPanel
      */
+    
+    private Business business;
+    private Applicant applicant;
+    
     public CreateApplicationPanel() {
         initComponents();
     }
+    
+    public CreateApplicationPanel(Business business){
+        initComponents();
+        this.business = business;
+        
+        populateInsuranceComboBox();
+        populateVacCompletedComboBox();
+        
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,19 +49,240 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        InsuranceComboBox = new javax.swing.JComboBox();
+        fieldAddVac = new javax.swing.JButton();
+        fieldVacName = new javax.swing.JTextField();
+        VacCompletedComboBox = new javax.swing.JComboBox<>();
+        fieldType = new javax.swing.JTextField();
+        fieldGender = new javax.swing.JTextField();
+        fieldAge = new javax.swing.JTextField();
+        fieldPetName = new javax.swing.JTextField();
+        fieldOwnerLastName = new javax.swing.JTextField();
+        fieldBreed = new javax.swing.JTextField();
+        fieldOwnerFirstName = new javax.swing.JTextField();
+        fieldAppId = new javax.swing.JTextField();
+        btnSaveApp = new javax.swing.JButton();
+        fieldAppDate = new com.toedter.calendar.JDateChooser();
+        labelPetCreated = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(204, 255, 204));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Create Application");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
+
+        jLabel2.setText("Application ID");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
+
+        jLabel3.setText("Insurance plan opted");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, -1, -1));
+
+        jLabel4.setText("First Name");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+
+        jLabel5.setText("Last Name");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
+
+        jLabel6.setText("Application Date");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+
+        jLabel7.setText("Pet Name");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
+
+        jLabel8.setText("Age");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+
+        jLabel9.setText("Gender");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
+
+        jLabel10.setText("Type");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
+
+        jLabel11.setText("Breed");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
+
+        jLabel12.setText("Completed");
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, -1));
+
+        jLabel14.setText("Vaccine Name");
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel15.setText("Owner");
+        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel16.setText("Pet");
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+
+        jLabel17.setText("Vaccination history for: ");
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, -1, -1));
+
+        add(InsuranceComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 130, -1));
+
+        fieldAddVac.setText("Add Vaccine");
+        fieldAddVac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldAddVacActionPerformed(evt);
+            }
+        });
+        add(fieldAddVac, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 130, -1));
+
+        fieldVacName.setText("N/A");
+        add(fieldVacName, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, 130, -1));
+
+        add(VacCompletedComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 130, -1));
+        add(fieldType, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 130, -1));
+        add(fieldGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 130, -1));
+        add(fieldAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 130, -1));
+        add(fieldPetName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 130, -1));
+        add(fieldOwnerLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 130, -1));
+        add(fieldBreed, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 130, -1));
+        add(fieldOwnerFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 130, -1));
+
+        fieldAppId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fieldAppIdFocusLost(evt);
+            }
+        });
+        add(fieldAppId, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 130, -1));
+
+        btnSaveApp.setText("Save Application");
+        btnSaveApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveAppActionPerformed(evt);
+            }
+        });
+        add(btnSaveApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, -1, -1));
+
+        fieldAppDate.setForeground(new java.awt.Color(255, 51, 51));
+        fieldAppDate.setDateFormatString("dd-MM-yyyy");
+        add(fieldAppDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 130, -1));
+        add(labelPetCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 80, 20));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSaveAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAppActionPerformed
+        // TODO add your handling code here:
+        ApplicantDirectory applicantDirectory = this.business.getApplicantDirectory();
+        
+        String id = fieldAppId.getText();
+        String fn = fieldOwnerFirstName.getText();
+        String ln = fieldOwnerLastName.getText();
+        Date date = fieldAppDate.getDate();
+        
+        String petName = fieldPetName.getText();
+        String age = fieldAge.getText();
+        String gender = fieldGender.getText();
+        String type = fieldType.getText();
+        String breed = fieldBreed.getText();
+        
+        InsurancePlan plan = (InsurancePlan) InsuranceComboBox.getSelectedItem();
+        
+        //create the applicant owner
+        this.applicant = applicantDirectory.createApplicant(Integer.valueOf(id), fn, ln,date);
+        //add a pet for the owner
+        Pet pet = this.applicant.addPet(petName, Integer.valueOf(age), gender, type, breed);
+        //assign a plan for the pet
+        pet.assignInsurance(plan);
+        
+        JOptionPane.showMessageDialog(null,"Applicant saved");
+    }//GEN-LAST:event_btnSaveAppActionPerformed
+
+    private void fieldAppIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldAppIdFocusLost
+        // TODO add your handling code here:
+        int applicantId = Integer.valueOf(fieldAppId.getText());
+        
+        Boolean appIdUnique = this.business.getApplicantDirectory().checkApplicantUnique(applicantId);
+        
+        if (!appIdUnique){
+            fieldAppId.setText("");
+            JOptionPane.showMessageDialog(null,"Applicant id already exists");
+        }
+    }//GEN-LAST:event_fieldAppIdFocusLost
+
+    private void fieldAddVacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldAddVacActionPerformed
+        // TODO add your handling code here:
+        String vacName = fieldVacName.getText();
+        String completed = (String) VacCompletedComboBox.getSelectedItem();
+        
+        Vaccination vac = this.applicant.getPet().getVaccines().addVaccine(vacName,toBoolean(completed));
+        
+        JOptionPane.showMessageDialog(null,"Vaccine added");
+        
+        System.out.println("pet: "+this.applicant.getPet().getPetName());
+        for (Vaccination v: this.applicant.getPet().getVaccines().getVaccinationhistory()){
+            System.out.println("name: " + vac.getVaccineName() + "completed: " + vac.getCourseCompleted());
+    }
+    }//GEN-LAST:event_fieldAddVacActionPerformed
+    
+    public void populateInsuranceComboBox(){
+        ArrayList<InsurancePlan> insuancePlans = this.business.getInsurancePlanDirectory().getInsurancePlans();
+        
+        for(InsurancePlan ip: insuancePlans){
+            InsuranceComboBox.addItem(ip);
+        }
+    }
+    
+    public void populateVacCompletedComboBox(){
+        VacCompletedComboBox.addItem("No");
+        VacCompletedComboBox.addItem("Yes");
+    }
+    
+    public boolean toBoolean(String completed){
+        if (completed.equals("Yes")){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox InsuranceComboBox;
+    private javax.swing.JComboBox<String> VacCompletedComboBox;
+    private javax.swing.JButton btnSaveApp;
+    private javax.swing.JButton fieldAddVac;
+    private javax.swing.JTextField fieldAge;
+    private com.toedter.calendar.JDateChooser fieldAppDate;
+    private javax.swing.JTextField fieldAppId;
+    private javax.swing.JTextField fieldBreed;
+    private javax.swing.JTextField fieldGender;
+    private javax.swing.JTextField fieldOwnerFirstName;
+    private javax.swing.JTextField fieldOwnerLastName;
+    private javax.swing.JTextField fieldPetName;
+    private javax.swing.JTextField fieldType;
+    private javax.swing.JTextField fieldVacName;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel labelPetCreated;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -21,5 +22,17 @@ public class ApplicantDirectory {
         return applicants;
     }
     
+    public Applicant createApplicant(int id, String fn, String ln, Date date){
+        Applicant applicant = new Applicant(id, fn, ln, date);
+        return applicant;
+    }
     
+    public Boolean checkApplicantUnique(int id){
+        for (Applicant a: applicants){
+            if (a.getApplicantId() == id){
+                return false;
+            }
+        }
+        return true;
+    }
 }

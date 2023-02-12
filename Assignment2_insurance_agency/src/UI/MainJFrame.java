@@ -57,6 +57,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         btnCreateApp.setText("Create Applicantion");
+        btnCreateApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAppActionPerformed(evt);
+            }
+        });
 
         btnViewApp.setText("View Applicantion");
 
@@ -108,6 +113,11 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         jSplitPane.setRightComponent(new ViewInsurancePanel(this.business));
     }//GEN-LAST:event_btnViewInsuranceActionPerformed
+
+    private void btnCreateAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAppActionPerformed
+        // TODO add your handling code here:
+        jSplitPane.setRightComponent(new CreateApplicationPanel(this.business));
+    }//GEN-LAST:event_btnCreateAppActionPerformed
 
     /**
      * @param args the command line arguments

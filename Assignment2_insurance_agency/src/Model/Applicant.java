@@ -11,11 +11,19 @@ import java.util.Date;
  * @author emi
  */
 public class Applicant {
-   int applicantId;
-   String firstName;
-   String lastName;
-   Date applicationDate;
-   Pet pet;
+   private int applicantId;
+   private String firstName;
+   private String lastName;
+   private Date applicationDate;
+   
+   private Pet pet;
+   
+   public Applicant(int id, String fn, String ln, Date date){
+       this.applicantId = id;
+       this.firstName = fn;
+       this.lastName = ln;
+       this.applicationDate = date;
+   }
 
     public int getApplicantId() {
         return applicantId;
@@ -52,10 +60,10 @@ public class Applicant {
     public Pet getPet() {
         return pet;
     }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
    
+    public Pet addPet(String name, int age, String gender, String type, String breed){
+        this.pet = new Pet(name, age, gender, type, breed);
+        return this.pet;
+    }
    
 }
