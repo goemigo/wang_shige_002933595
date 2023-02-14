@@ -36,4 +36,13 @@ public class InsurancePlanCatalog {
         return true;
     }
     
+    public InsurancePlan findPlan(int id){
+        for (InsurancePlan ip: insurancePlans){
+            if(ip.getPlanId() == id){
+                return ip;
+            }
+        }
+        return null;
+    }
+    
 }

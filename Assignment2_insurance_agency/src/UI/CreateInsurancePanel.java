@@ -100,7 +100,7 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
 
     private void btnCreateInsurancePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateInsurancePlanActionPerformed
         // TODO add your handling code here:
-        InsurancePlanCatalog insuranceDirectory = this.business.getInsurancePlanDirectory();
+        InsurancePlanCatalog insuranceDirectory = this.business.getInsurancePlanCatalog();
         
         String id = fieldPlanId.getText();
         String name = fieldPlanName.getText();
@@ -108,7 +108,13 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
 //        String costPerAnnum = fieldCostPerAnnum.getText();
         
         insuranceDirectory.createInsurancePlan(Integer.valueOf(id),name,Float.valueOf(costPerMonth));
-//        this.planCreated.setCostPerAnnum(Float.valueOf(fieldCostPerAnnum.getText()));
+        
+        //clear all fields after create one insurance
+        fieldPlanId.setText("");
+        fieldPlanName.setText("");
+        fieldCostPerMonth.setText("");
+        fieldCostPerAnnum.setText("");
+        
         JOptionPane.showMessageDialog(null,"saved");
     }//GEN-LAST:event_btnCreateInsurancePlanActionPerformed
 
@@ -126,7 +132,7 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
     private void fieldPlanIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldPlanIdFocusLost
         // TODO add your handling code here:
         int id = Integer.valueOf(fieldPlanId.getText());
-        Boolean idUnique = this.business.getInsurancePlanDirectory().checkInsuranceIdUnique(id);
+        Boolean idUnique = this.business.getInsurancePlanCatalog().checkInsuranceIdUnique(id);
         
         if(!idUnique){
             fieldPlanId.setText("");

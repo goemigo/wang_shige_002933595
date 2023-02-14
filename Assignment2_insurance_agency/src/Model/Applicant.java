@@ -65,5 +65,10 @@ public class Applicant {
         this.pet = new Pet(name, age, gender, type, breed);
         return this.pet;
     }
+    
+    @Override
+    public String toString(){
+        return String.valueOf(this.applicantId);
+    }
    
 }

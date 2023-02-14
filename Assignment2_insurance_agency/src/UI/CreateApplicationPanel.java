@@ -25,7 +25,7 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
      */
     
     private Business business;
-    private Applicant applicant;
+    private Applicant applicantCreated;
     
     public CreateApplicationPanel() {
         initComponents();
@@ -34,6 +34,7 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
     public CreateApplicationPanel(Business business){
         initComponents();
         this.business = business;
+//        this.applicantCreated = app;
         
         populateInsuranceComboBox();
         populateVacCompletedComboBox();
@@ -118,10 +119,10 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
 
         jLabel12.setText("Completed");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, -1));
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, -1, -1));
 
         jLabel14.setText("Vaccine Name");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, -1, -1));
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabel15.setText("Owner");
@@ -132,9 +133,9 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
         jLabel17.setText("Vaccination history for: ");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, -1, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 487, -1, 20));
 
-        add(InsuranceComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 130, -1));
+        add(InsuranceComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 150, -1));
 
         fieldAddVac.setText("Add Vaccine");
         fieldAddVac.addActionListener(new java.awt.event.ActionListener() {
@@ -142,26 +143,26 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
                 fieldAddVacActionPerformed(evt);
             }
         });
-        add(fieldAddVac, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 130, -1));
+        add(fieldAddVac, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 590, 150, -1));
 
         fieldVacName.setText("N/A");
-        add(fieldVacName, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, 130, -1));
+        add(fieldVacName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 150, -1));
 
-        add(VacCompletedComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 130, -1));
-        add(fieldType, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 130, -1));
-        add(fieldGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 130, -1));
-        add(fieldAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 130, -1));
-        add(fieldPetName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 130, -1));
-        add(fieldOwnerLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 130, -1));
-        add(fieldBreed, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 130, -1));
-        add(fieldOwnerFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 130, -1));
+        add(VacCompletedComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 550, 150, -1));
+        add(fieldType, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 150, -1));
+        add(fieldGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 150, -1));
+        add(fieldAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 150, -1));
+        add(fieldPetName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 150, -1));
+        add(fieldOwnerLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 150, -1));
+        add(fieldBreed, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 150, -1));
+        add(fieldOwnerFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 150, -1));
 
         fieldAppId.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 fieldAppIdFocusLost(evt);
             }
         });
-        add(fieldAppId, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 130, -1));
+        add(fieldAppId, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 150, -1));
 
         btnSaveApp.setText("Save Application");
         btnSaveApp.addActionListener(new java.awt.event.ActionListener() {
@@ -169,12 +170,14 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
                 btnSaveAppActionPerformed(evt);
             }
         });
-        add(btnSaveApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, -1, -1));
+        add(btnSaveApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, 150, -1));
 
         fieldAppDate.setForeground(new java.awt.Color(255, 51, 51));
-        fieldAppDate.setDateFormatString("dd-MM-yyyy");
-        add(fieldAppDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 130, -1));
-        add(labelPetCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 80, 20));
+        fieldAppDate.setDateFormatString("yyyy-MM-dd");
+        add(fieldAppDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 150, -1));
+
+        labelPetCreated.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        add(labelPetCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 480, 130, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAppActionPerformed
@@ -195,13 +198,23 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
         InsurancePlan plan = (InsurancePlan) InsuranceComboBox.getSelectedItem();
         
         //create the applicant owner
-        this.applicant = applicantDirectory.createApplicant(Integer.valueOf(id), fn, ln,date);
+        this.applicantCreated = applicantDirectory.createApplicant(Integer.valueOf(id), fn, ln, date);
+
         //add a pet for the owner
-        Pet pet = this.applicant.addPet(petName, Integer.valueOf(age), gender, type, breed);
+        Pet pet = this.applicantCreated.addPet(petName, Integer.valueOf(age), gender, type, breed);
+  
         //assign a plan for the pet
         pet.assignInsurance(plan);
         
+        //show pet name to add vaccine
+        labelPetCreated.setText(pet.getPetName());
+        
+        //clear the app id field to enable check for uniqueness for app id
+        fieldAppId.setText("");
+        
         JOptionPane.showMessageDialog(null,"Applicant saved");
+        
+        
     }//GEN-LAST:event_btnSaveAppActionPerformed
 
     private void fieldAppIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldAppIdFocusLost
@@ -221,18 +234,17 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
         String vacName = fieldVacName.getText();
         String completed = (String) VacCompletedComboBox.getSelectedItem();
         
-        Vaccination vac = this.applicant.getPet().getVaccines().addVaccine(vacName,toBoolean(completed));
+        Vaccination vac = this.applicantCreated.getPet().getVaccines().addVaccine(vacName,toBoolean(completed));
         
         JOptionPane.showMessageDialog(null,"Vaccine added");
         
-        System.out.println("pet: "+this.applicant.getPet().getPetName());
-        for (Vaccination v: this.applicant.getPet().getVaccines().getVaccinationhistory()){
-            System.out.println("name: " + vac.getVaccineName() + "completed: " + vac.getCourseCompleted());
-    }
+        //clear the vaccine fields after one vaccine is added
+        fieldVacName.setText("");
+        VacCompletedComboBox.setSelectedItem("No");
     }//GEN-LAST:event_fieldAddVacActionPerformed
     
     public void populateInsuranceComboBox(){
-        ArrayList<InsurancePlan> insuancePlans = this.business.getInsurancePlanDirectory().getInsurancePlans();
+        ArrayList<InsurancePlan> insuancePlans = this.business.getInsurancePlanCatalog().getInsurancePlans();
         
         for(InsurancePlan ip: insuancePlans){
             InsuranceComboBox.addItem(ip);

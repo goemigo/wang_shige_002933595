@@ -27,4 +27,22 @@ public class VaccinationHistory {
         return vac;
     }
     
+    public boolean vaccineExists(String vacName){
+        for (Vaccination v: vaccinationhistory){
+            if(v.getVaccineName().equals(vacName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Vaccination findVaccine(String vacName){
+        Vaccination vac;
+        for (Vaccination v: vaccinationhistory){
+            if(v.getVaccineName().equals(vacName)){
+                return v;
+            }
+        }
+        return null;
+    }
 }

@@ -38,5 +38,15 @@ public class Vaccination {
         this.courseCompleted = courseCompletes;
     }
     
+    public String getCourseCompletedString(){
+        if (this.courseCompleted){
+            return "Yes";
+        }
+        return "No";
+    }
     
+//    @Override
+//    public String toString(){
+//        return String.valueOf(this.vaccineName);
+//    }
 }

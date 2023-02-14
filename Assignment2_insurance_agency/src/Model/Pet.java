@@ -60,6 +60,30 @@ public class Pet {
     public String getBreed() {
         return breed;
     }
+
+    public void setPetName(String petName) {
+        this.petName = petName;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setPetType(String petType) {
+        this.petType = petType;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public void setIsurancePlanOpted(InsurancePlan isurancePlanOpted) {
+        this.isurancePlanOpted = isurancePlanOpted;
+    }
     
     
     

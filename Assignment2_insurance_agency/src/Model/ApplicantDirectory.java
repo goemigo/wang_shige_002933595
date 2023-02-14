@@ -6,6 +6,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +25,8 @@ public class ApplicantDirectory {
     
     public Applicant createApplicant(int id, String fn, String ln, Date date){
         Applicant applicant = new Applicant(id, fn, ln, date);
+        applicants.add(applicant);
+        
         return applicant;
     }
     
@@ -35,4 +38,50 @@ public class ApplicantDirectory {
         }
         return true;
     }
+    
+    public void delApp(Applicant app){
+        this.applicants.remove(app);
+    }
+    
+    public ArrayList<Applicant> searchByNameOrId(String firstName, String id){
+        ArrayList<Applicant> applicantsFound = new ArrayList<Applicant>();
+        
+        if (id.isEmpty() && firstName.isEmpty()){
+            JOptionPane.showMessageDialog(null,"Please input a search criteria");
+        }else if(id.isEmpty()){
+            for (Applicant a: applicants){
+                if (a.getFirstName().equals(firstName)){
+                    applicantsFound.add(a);
+                }
+            }
+        }else{
+            for (Applicant a: applicants){
+                if (a.getApplicantId() == Integer.valueOf(id)){
+                    applicantsFound.add(a);
+                }
+            }
+        }
+            
+        if(applicantsFound.size() == 0){
+            JOptionPane.showMessageDialog(null,"No applicant found");
+        }
+            return applicantsFound;
+    }
+    
+    public ArrayList<Applicant> searchAppByName(String name){
+        ArrayList<Applicant> applicantsFound = new ArrayList<Applicant>();
+
+        for (Applicant a: this.applicants){
+            if (a.getFirstName().equals(name)){
+                applicantsFound.add(a);
+            }
+        }    
+
+        return applicantsFound;
+        
+    }
+    
+
+    
+
 }
