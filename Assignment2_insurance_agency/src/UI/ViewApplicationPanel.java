@@ -45,6 +45,10 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         //show all applicants before search
         populateAllApps();
         
+        //populate the insurance plan dropdown and set default selected to none
+        populateInsuranceComboBox();
+        planOpted.setSelectedItem(null);
+        
         //populate the vaccine completed dropdown and set defalt selected to none
         populateVacCompletedComboBox();
         vacCompletedComboBox.setSelectedItem(null);
@@ -138,6 +142,7 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         fieldVacName = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         vacCompletedComboBox = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,7 +153,7 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         jLabel2.setText("Applicant ID");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 67, -1, 30));
 
-        jLabel3.setText("Applicant Name");
+        jLabel3.setText("First Name");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, 30));
         add(fieldSearchName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 110, 30));
         add(fieldSearchId, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 110, 30));
@@ -309,10 +314,13 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         });
         add(fieldVacName, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 490, 130, -1));
 
-        jLabel18.setText("(Click on ID to see details)");
-        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+        jLabel18.setText("(Click on name to see details)");
+        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 440, -1, -1));
 
         add(vacCompletedComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, 130, -1));
+
+        jLabel19.setText("(Click on ID to see details)");
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewAppIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewAppIdFocusLost
@@ -481,7 +489,7 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         viewType.setText(selectedApp.getPet().getPetType());
         viewBreed.setText(selectedApp.getPet().getBreed());
         
-        populateInsuranceComboBox();
+        
         planOpted.setSelectedItem(selectedApp.getPet().getIsurancePlanOpted());
         
         //show the vaccine history table
@@ -520,6 +528,7 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
