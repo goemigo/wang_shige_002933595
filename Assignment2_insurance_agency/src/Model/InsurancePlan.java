@@ -47,10 +47,6 @@ public class InsurancePlan {
         this.costPerMonth = costPerMonth;
     }
     
-//    public void setCostPerAnnum(float costPerAnnum){
-//        this.costPerAnnum = costPerAnnum;
-//    }
-    
     public float getCostPerAnnum(){
         return costPerAnnum;
     }

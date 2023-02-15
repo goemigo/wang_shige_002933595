@@ -6,6 +6,7 @@ package UI;
 
 import Model.Business;
 import Model.InsurancePlanCatalog;
+import Model.VerifyNull;
 import javax.swing.JOptionPane;
 
 /**
@@ -105,24 +106,30 @@ public class CreateInsurancePanel extends javax.swing.JPanel {
         String id = fieldPlanId.getText();
         String name = fieldPlanName.getText();
         String costPerMonth = fieldCostPerMonth.getText();
-//        String costPerAnnum = fieldCostPerAnnum.getText();
+        String costPerAnnum = fieldCostPerAnnum.getText();
         
-        insuranceDirectory.createInsurancePlan(Integer.valueOf(id),name,Float.valueOf(costPerMonth));
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(id,name,costPerMonth,costPerAnnum);
         
-        //clear all fields after create one insurance
+        if(nonull){
+            insuranceDirectory.createInsurancePlan(Integer.valueOf(id),name,Float.valueOf(costPerMonth));
+            
+            JOptionPane.showMessageDialog(null,"saved");
+        }
+
+        //clear id fields after create one insurance, ensure the id input is unique
         fieldPlanId.setText("");
-        fieldPlanName.setText("");
-        fieldCostPerMonth.setText("");
-        fieldCostPerAnnum.setText("");
-        
-        JOptionPane.showMessageDialog(null,"saved");
+
     }//GEN-LAST:event_btnCreateInsurancePlanActionPerformed
 
     private void fieldCostPerMonthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldCostPerMonthFocusLost
         // TODO add your handling code here
         
-        showCostPerAnnum();
-        
+        if(fieldCostPerMonth.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Please input the cost per month");
+        }else{
+            showCostPerAnnum();
+        } 
     }//GEN-LAST:event_fieldCostPerMonthFocusLost
 
     private void fieldPlanIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPlanIdActionPerformed

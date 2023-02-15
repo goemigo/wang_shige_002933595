@@ -6,6 +6,7 @@ package UI;
 
 import Model.Business;
 import Model.InsurancePlan;
+import Model.VerifyNull;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -218,13 +219,18 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
             String costPerMonth = viewCostPerMonth.getText();
             
             showCostPerAnnum();
-            viewCostPerAnnum.getText();
-            
-            this.selectedInsurance.setPlanName(name);
-            this.selectedInsurance.setCostPerMonth(Float.valueOf(costPerMonth));
-            this.selectedInsurance.calCostPerAnnum(Float.valueOf(costPerMonth));
-            
-            JOptionPane.showMessageDialog(null,"Updated");
+            String costPerAnnum = viewCostPerAnnum.getText();
+
+            VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(name,costPerMonth,costPerAnnum);
+        
+            if(nonull){
+                this.selectedInsurance.setPlanName(name);
+                this.selectedInsurance.setCostPerMonth(Float.valueOf(costPerMonth));
+                this.selectedInsurance.calCostPerAnnum(Float.valueOf(costPerMonth));
+                
+                JOptionPane.showMessageDialog(null,"Updated");
+            }
         }else{
             JOptionPane.showMessageDialog(null,"Please select a row!");
         }
@@ -235,7 +241,11 @@ public class ViewInsurancePanel extends javax.swing.JPanel {
 
     private void viewCostPerMonthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewCostPerMonthFocusLost
         // TODO add your handling code here:
-        showCostPerAnnum();
+        if(viewCostPerMonth.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Please input the cost per month");
+        }else{
+            showCostPerAnnum();
+        }
     }//GEN-LAST:event_viewCostPerMonthFocusLost
     
     public void displayInsuranceCatlog(){

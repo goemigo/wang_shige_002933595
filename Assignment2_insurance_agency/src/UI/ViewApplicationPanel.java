@@ -10,6 +10,7 @@ import Model.Business;
 import Model.InsurancePlan;
 import Model.Vaccination;
 import Model.VaccinationHistory;
+import Model.VerifyNull;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -44,10 +45,10 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         //show all applicants before search
         populateAllApps();
         
-        //populate the plan dropdown for update selection
-//        newplanCombo.insertItemAt("select to opt for a new plan", 0);
+        //populate the vaccine completed dropdown and set defalt selected to none
+        populateVacCompletedComboBox();
+        vacCompletedComboBox.setSelectedItem(null);
 
-//        newplanCombo.setSelectedIndex(0);
     }
 
     /**
@@ -132,11 +133,11 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         viewOwnerLastName = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        fieldCompleted = new javax.swing.JTextField();
         viewBreed = new javax.swing.JTextField();
         planOpted = new javax.swing.JComboBox();
         fieldVacName = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
+        vacCompletedComboBox = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 204, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -296,13 +297,6 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         jLabel16.setBackground(new java.awt.Color(204, 204, 204));
         jLabel16.setText("Vaccine Name");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 470, -1, -1));
-
-        fieldCompleted.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldCompletedActionPerformed(evt);
-            }
-        });
-        add(fieldCompleted, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, 130, -1));
         add(viewBreed, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, 150, -1));
 
         planOpted.setToolTipText("");
@@ -317,15 +311,13 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
 
         jLabel18.setText("(Click on ID to see details)");
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+
+        add(vacCompletedComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, 130, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewAppIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewAppIdFocusLost
 
     }//GEN-LAST:event_viewAppIdFocusLost
-
-    private void fieldCompletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCompletedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldCompletedActionPerformed
 
     private void btnSrchAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSrchAppActionPerformed
         // TODO add your handling code here:
@@ -382,12 +374,15 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         viewGender.setText("");
         planOpted.setSelectedItem(null);
         vacTableModel.setRowCount(0);
+        fieldVacName.setText("");
+        vacCompletedComboBox.setSelectedItem(null);
         
     }
     private void btnUpdatePetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePetActionPerformed
         // TODO add your handling code here:
         String id = viewAppId.getText();
         Applicant selectedApp = this.business.getApplicantDirectory().searchByNameOrId(null, id).get(0);
+        VaccinationHistory vacHistory = selectedApp.getPet().getVaccines();
         
         String name = viewPetName.getText();
         String age = viewAge.getText();
@@ -395,47 +390,54 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         String type = viewType.getText();
         String breed = viewBreed.getText();
         InsurancePlan plan = (InsurancePlan) planOpted.getSelectedItem();
+       
+        //check for null values before update
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(name,age,gender,type,breed,plan);
 
-        selectedApp.getPet().setPetName(name);
-        selectedApp.getPet().setAge(Integer.valueOf(age));
-        selectedApp.getPet().setGender(gender);
-        selectedApp.getPet().setPetType(type);
-        selectedApp.getPet().setBreed(breed);
-        selectedApp.getPet().assignInsurance(plan);
+        if(nonull){
+            selectedApp.getPet().setPetName(name);
+            selectedApp.getPet().setAge(Integer.valueOf(age));
+            selectedApp.getPet().setGender(gender);
+            selectedApp.getPet().setPetType(type);
+            selectedApp.getPet().setBreed(breed);
+            selectedApp.getPet().assignInsurance(plan);
+            
+            String vacName = fieldVacName.getText();
+            String completed = (String) vacCompletedComboBox.getSelectedItem();
+            
+            if(!vacName.isEmpty() && completed != null){//need to update vaccine
+                if(vacHistory.vaccineExists(vacName)){
+                    vacHistory.findVaccine(vacName).setCourseCompletes(toBoolean(completed));
+                }else{
+                    vacHistory.addVaccine(vacName, toBoolean(completed));
+                }
+                
+                JOptionPane.showMessageDialog(null, "pet updated");
         
-        //update vaccine details
-        String vacName = fieldVacName.getText();
-        String completed = fieldCompleted.getText();
-        VaccinationHistory vacHistory = selectedApp.getPet().getVaccines();
+                //repopulate the vaccine table after pet details are updated
+                populateVacTable(selectedApp);
         
-        if(vacHistory.vaccineExists(vacName)){
-            vacHistory.findVaccine(vacName).setCourseCompletes(toBoolean(completed));
-        }else{
-            vacHistory.addVaccine(vacName, toBoolean(completed));
+                //clear the vaccine input fields
+                fieldVacName.setText("");
+                vacCompletedComboBox.setSelectedItem(null);
+                
+            }else if(vacName.isEmpty() && completed == null){
+                //no need to update vaccine, just save pet detail
+                JOptionPane.showMessageDialog(null, "pet updated");
+            }else{
+                JOptionPane.showMessageDialog(null, "please fill all the fields for vaccination");
+            }
+            
+            
+        
+
         }
-        
-        //repopulate the vaccine table after pet details are updated
-        populateVacTable(selectedApp);
-        
-        JOptionPane.showMessageDialog(null, "pet updated");
-        
+   
     }//GEN-LAST:event_btnUpdatePetActionPerformed
-    
-//    public InsurancePlan getUpdatedInsurancePlan(){
-//
-//        InsurancePlan newPlan;
-//        
-//        if(newplanCombo.getSelectedItem().equals("select to opt for a new plan")){
-//            int planid = Integer.valueOf(viewPlanOpted.getText());
-//            newPlan = this.business.getInsurancePlanCatalog().findPlan(planid);
-//        }else{
-//            newPlan = (InsurancePlan) newplanCombo.getSelectedItem();
-//        }
-//        
-//        return newPlan;
-//    }
+  
     public boolean toBoolean(String completed){
-        if (completed.equals("Yes")){
+        if (completed.equalsIgnoreCase("Yes")){
             return true;
         }else{
             return false;
@@ -458,7 +460,7 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
         
         //show vaccine detail
         fieldVacName.setText(vac.getVaccineName());
-        fieldCompleted.setText(vac.getCourseCompletedString());
+        vacCompletedComboBox.setSelectedItem(vac.getCourseCompletedString());
     }//GEN-LAST:event_vacHistoryTableMouseClicked
 
     private void applicantTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicantTableMouseClicked
@@ -494,13 +496,17 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
             planOpted.addItem(ip);
         }
     }
+    
+    public void populateVacCompletedComboBox(){
+        vacCompletedComboBox.addItem("No");
+        vacCompletedComboBox.addItem("Yes");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable applicantTable;
     private javax.swing.JButton btnDelApp;
     private javax.swing.JButton btnSrchApp;
     private javax.swing.JButton btnUpdatePet;
-    private javax.swing.JTextField fieldCompleted;
     private javax.swing.JTextField fieldSearchId;
     private javax.swing.JTextField fieldSearchName;
     private javax.swing.JTextField fieldVacName;
@@ -525,6 +531,7 @@ public class ViewApplicationPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox planOpted;
+    private javax.swing.JComboBox<String> vacCompletedComboBox;
     private javax.swing.JTable vacHistoryTable;
     private javax.swing.JTextField viewAge;
     private javax.swing.JTextField viewAppDate;

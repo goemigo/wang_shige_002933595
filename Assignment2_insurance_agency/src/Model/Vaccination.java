@@ -45,8 +45,4 @@ public class Vaccination {
         return "No";
     }
     
-//    @Override
-//    public String toString(){
-//        return String.valueOf(this.vaccineName);
-//    }
 }

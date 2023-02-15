@@ -10,6 +10,7 @@ import Model.Business;
 import Model.InsurancePlan;
 import Model.Pet;
 import Model.Vaccination;
+import Model.VerifyNull;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -197,23 +198,28 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
         
         InsurancePlan plan = (InsurancePlan) InsuranceComboBox.getSelectedItem();
         
-        //create the applicant owner
-        this.applicantCreated = applicantDirectory.createApplicant(Integer.valueOf(id), fn, ln, date);
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(id,fn,ln,date
+                ,petName,age,gender,type,breed,plan);
+        
+        if(nonull){
+            //create the applicant owner
+            this.applicantCreated = applicantDirectory.createApplicant(Integer.valueOf(id), fn, ln, date);
 
-        //add a pet for the owner
-        Pet pet = this.applicantCreated.addPet(petName, Integer.valueOf(age), gender, type, breed);
+            //add a pet for the owner
+            Pet pet = this.applicantCreated.addPet(petName, Integer.valueOf(age), gender, type, breed);
   
-        //assign a plan for the pet
-        pet.assignInsurance(plan);
+            //assign a plan for the pet
+            pet.assignInsurance(plan);
         
-        //show pet name to add vaccine
-        labelPetCreated.setText(pet.getPetName());
+            //show pet name to add vaccine
+            labelPetCreated.setText(pet.getPetName());
         
-        //clear the app id field to enable check for uniqueness for app id
-        fieldAppId.setText("");
+            JOptionPane.showMessageDialog(null,"Applicant saved");
         
-        JOptionPane.showMessageDialog(null,"Applicant saved");
-        
+            //clear the app id field to enable check for uniqueness for app id
+            fieldAppId.setText("");
+        }
         
     }//GEN-LAST:event_btnSaveAppActionPerformed
 
@@ -234,13 +240,19 @@ public class CreateApplicationPanel extends javax.swing.JPanel {
         String vacName = fieldVacName.getText();
         String completed = (String) VacCompletedComboBox.getSelectedItem();
         
-        Vaccination vac = this.applicantCreated.getPet().getVaccines().addVaccine(vacName,toBoolean(completed));
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(vacName,completed);
         
-        JOptionPane.showMessageDialog(null,"Vaccine added");
+        if(nonull){
+            Vaccination vac = this.applicantCreated.getPet().getVaccines().addVaccine(vacName,toBoolean(completed));
         
-        //clear the vaccine fields after one vaccine is added
-        fieldVacName.setText("");
-        VacCompletedComboBox.setSelectedItem("No");
+            JOptionPane.showMessageDialog(null,"Vaccine added");
+            
+            //clear the vaccine fields after one vaccine is added
+            fieldVacName.setText("");
+            VacCompletedComboBox.setSelectedItem("No");
+        }
+        
     }//GEN-LAST:event_fieldAddVacActionPerformed
     
     public void populateInsuranceComboBox(){
