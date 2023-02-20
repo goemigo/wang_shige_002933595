@@ -5,33 +5,64 @@
 package RentalRequest;
 
 import Customer.Customer;
-import Library.Book.Book;
+import Library.Library;
+import Library.Material.Book;
+import Library.Material.Magazine;
 
 /**
  *
  * @author emi
  */
 public class RentalRequest {
-    private Book book;
-    private String id;
-    String status;
-    Customer customer;
-    private int rentalpricePerMonth = 100;
-    private int duration = 1; //default 1 month
-    private int totalRentalPrice;
-    
     private static int count = 0;
-
+    private String id;
+    Customer customer;
+    private static int price = 100; //price no change
+    String status;
+    private int duration = 1; //default 1 week
+    private Book book;
+    private Magazine mag;
+    private Library lib;
     
-    public RentalRequest(){
-        this.customer = new Customer();
-        this.status = "Created";
+    public RentalRequest(int duration, Book b, Magazine m, Library lib, Customer cus){
         this.count++;
-        
         this.id = "RequestId" + this.count;
+        
+//        this.customer = new Customer();
+        this.status = "Created";
+        
+        this.customer = cus;
+        this.duration = duration;
+        this.book = b;
+        this.mag = mag;
+        this.lib = lib;
+    }
+
+    public static int getPrice() {
+        return price;
+    }
+
+    public static void setPrice(int price) {
+        RentalRequest.price = price;
+    }
+
+    public Magazine getMag() {
+        return mag;
+    }
+
+    public void setMag(Magazine mag) {
+        this.mag = mag;
+    }
+
+    public Library getLib() {
+        return lib;
+    }
+
+    public void setLib(Library lib) {
+        this.lib = lib;
     }
     
-    //no need to assign a librarian to a request
+    
 
     public Customer getCustomer() {
         return customer;
@@ -64,15 +95,6 @@ public class RentalRequest {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public int calTotalRentalprice() {
-        totalRentalPrice = this.rentalpricePerMonth*this.getDuration(); 
-        return totalRentalPrice;//multiply by the duration that customer inputs
-    }
-
-    public void setRentalprice(int rentalprice) {
-        this.rentalpricePerMonth = rentalprice;
     }
 
     public int getDuration() {

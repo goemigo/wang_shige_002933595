@@ -6,6 +6,7 @@ package Library.User;
 
 import Library.Library;
 import UI.AdminJFrame;
+import UI.BranchManagerJFrame;
 import UI.CustomerJFrame;
 import UI.LibrarianJFrame;
 import javax.swing.JFrame;
@@ -18,8 +19,7 @@ public class UserAccount {
     private static int count = 0;
     private String accountid;
     private String username;
-    private String password;
-    
+    private String password; 
     private String role;
     
     public UserAccount(){
@@ -86,6 +86,9 @@ public class UserAccount {
         }
         if (role.equals("librarian")){
             return new LibrarianJFrame(l,u);
+        }
+        if (role.equals("branch manager")){
+            return new BranchManagerJFrame(l,u);
         }
         return null;
         

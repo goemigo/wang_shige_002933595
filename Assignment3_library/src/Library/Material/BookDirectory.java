@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Library.Book;
+package Library.Material;
 
-import Library.Book.Book;
 import Library.Author.Author;
 import Library.Genre.Genre;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -24,8 +24,8 @@ public class BookDirectory {
         return books;
     }
     
-    public Book addBook(String title, Author a, Genre g){
-        Book book = new Book(title, a, g);
+    public Book addBook(String name, Date registerDate, boolean isAvail, Author a, Genre g, int pages, String lang, String type){
+        Book book = new Book(name, registerDate, isAvail, a, g, pages, lang, type);
         this.books.add(book);
         
         return book;
@@ -33,7 +33,7 @@ public class BookDirectory {
     
     public Book findBook(String title){
         for (Book b: books){
-            if (b.getTitle().equals(title)){
+            if (b.getName().equals(title)){
                 return b;
             }
         }

@@ -4,12 +4,14 @@
  */
 package Library;
 
+import Library.Employee.Librarian;
 import Library.User.UserAccountDirectory;
 import Library.User.UserAccount;
 import Library.Genre.GenreDirectory;
-import Library.Book.BookDirectory;
+import Library.Material.BookDirectory;
 import Library.Author.AuthorDirectory;
 import Customer.CustomerDirectory;
+import Library.Employee.EmployeeDirectory;
 import RentalRequest.MasterRentalRequestDirectory;
 import Role.Role;
 
@@ -18,37 +20,53 @@ import Role.Role;
  * @author emi
  */
 public class Library {
-    private UserAccountDirectory userAccountDirectory;
+    private int buildingNo;
+//    private UserAccountDirectory userAccountDirectory;
     private AuthorDirectory authorDirectory;
     private BookDirectory bookDirectory;
     private GenreDirectory genreDirectory;
-    private CustomerDirectory customerDirectory;
-    private MasterRentalRequestDirectory masterRentalRequestDirectory;
+//    private CustomerDirectory customerDirectory;
+//    private MasterRentalRequestDirectory masterRentalRequestDirectory;
     private Librarian librarian;
+    private EmployeeDirectory employeeDirectory;
     
-    public Library(){
-        this.userAccountDirectory = new UserAccountDirectory();
+    public Library(int no){
+        this.buildingNo = no;
+//        this.userAccountDirectory = new UserAccountDirectory();
         this.authorDirectory  = new AuthorDirectory();
         this.bookDirectory = new BookDirectory();
         this.genreDirectory = new GenreDirectory();
-        this.customerDirectory = new CustomerDirectory();
-        this.masterRentalRequestDirectory = new MasterRentalRequestDirectory();
+//        this.customerDirectory = new CustomerDirectory();
+//        this.masterRentalRequestDirectory = new MasterRentalRequestDirectory();
         this.librarian = new Librarian();
+        this.employeeDirectory = new EmployeeDirectory();
         
 
         
         //create a manager
-        UserAccount user = this.userAccountDirectory.createUserAccount("admin", "admin", "admin");
+//        UserAccount user = this.userAccountDirectory.createUserAccount("admin", "admin", "admin");
         
     }
 
-    public static Library getLibrary(){
-        return new Library();
+    public EmployeeDirectory getEmployeeDirectory() {
+        return employeeDirectory;
+    }
+    
+    
+    public int getBuildingNo() {
+        return buildingNo;
     }
 
-    public UserAccountDirectory getUserAccountDirectory() {
-        return userAccountDirectory;
+//    public static Library getLibrary(){
+//        return new Library();
+//    }
+    public void setBuildingNo(int buildingNo) {    
+        this.buildingNo = buildingNo;
     }
+
+//    public UserAccountDirectory getUserAccountDirectory() {
+//        return userAccountDirectory;
+//    }
 
     public AuthorDirectory getAuthorDirectory() {
         return authorDirectory;

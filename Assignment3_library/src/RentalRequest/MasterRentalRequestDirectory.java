@@ -5,6 +5,9 @@
 package RentalRequest;
 
 import Customer.Customer;
+import Library.Library;
+import Library.Material.Book;
+import Library.Material.Magazine;
 import java.util.ArrayList;
 
 /**
@@ -22,10 +25,9 @@ public class MasterRentalRequestDirectory {
         return masterRequestList;
     }
     
-    public RentalRequest requestRental(Customer c){
-        RentalRequest rr = new RentalRequest();
-        rr.setCustomer(c); 
-        
+    public RentalRequest requestRental(int duration, Book b, Magazine m, Library lib, Customer c){
+        RentalRequest rr = new RentalRequest(duration, b, m, lib, c);
+//        rr.setCustomer(c); 
         this.masterRequestList.add(rr);
         return rr;
     }
