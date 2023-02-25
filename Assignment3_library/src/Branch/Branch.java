@@ -15,14 +15,16 @@ import Library.User.UserAccountDirectory;
 public class Branch {
     private String name;
     private Library library;
-    UserAccountDirectory uad;
+
     
-    public Branch(String name, int buildingNo){
-        this.name = name;
-        this.library = new Library(buildingNo);
-        this.uad = new UserAccountDirectory();
-        
+    public Branch(String name){
+        this.name = name;       
 //        UserAccount user = this.uad.createUserAccount("admin", "admin", "admin");
+    }
+    
+    public Library addLibrary(int buildingNo){
+        return this.library = new Library(buildingNo);
+        
     }
 
     public String getName() {
@@ -41,14 +43,11 @@ public class Branch {
         this.library = library;
     }
 
-    public UserAccountDirectory getUad() {
-        return uad;
-    }
 
-    public void setUad(UserAccountDirectory uad) {
-        this.uad = uad;
+    @Override
+    public String toString(){
+        return this.name;
     }
-    
     
     
     

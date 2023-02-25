@@ -4,6 +4,9 @@
  */
 package Customer;
 
+import Library.Library;
+import Library.Material.Book;
+import Library.Material.Magazine;
 import Person.Person;
 import RentalRequest.RentalRequest;
 import java.util.ArrayList;
@@ -21,8 +24,11 @@ public class Customer extends Person{
         this.requests = new ArrayList<RentalRequest>();
     }
     
-    public void addRequest(RentalRequest rr){
+    public RentalRequest addRequest(Customer cus, Book b, Magazine m, int duration, Library lib){
+        RentalRequest rr = new RentalRequest(this,b,m,duration,lib);
         this.requests.add(rr);
+        
+        return rr;
     }
 
     public ArrayList<RentalRequest> getRequests() {

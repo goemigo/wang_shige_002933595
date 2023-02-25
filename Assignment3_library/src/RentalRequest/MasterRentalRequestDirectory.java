@@ -25,10 +25,4 @@ public class MasterRentalRequestDirectory {
         return masterRequestList;
     }
     
-    public RentalRequest requestRental(int duration, Book b, Magazine m, Library lib, Customer c){
-        RentalRequest rr = new RentalRequest(duration, b, m, lib, c);
-//        rr.setCustomer(c); 
-        this.masterRequestList.add(rr);
-        return rr;
-    }
 }

@@ -4,6 +4,7 @@
  */
 package UI;
 
+import AppSystem.AppSystem;
 import Customer.Customer;
 import Library.Library;
 import Library.User.UserAccount;
@@ -20,7 +21,7 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
     /**
      * Creates new form CustomerManagementPanel
      */
-    private Library library;
+    private AppSystem app;
     private UserAccount ua;
     DefaultTableModel tableModel;
     
@@ -28,10 +29,10 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public CustomerManagementPanel(Library l, UserAccount ua){
+    public CustomerManagementPanel(AppSystem app, UserAccount ua){
         initComponents();
         
-        this.library = l;
+        this.app = app;
         this.ua = ua;
         this.tableModel = (DefaultTableModel) jTable1.getModel();
         
@@ -74,7 +75,7 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Name", "Username", "Password"
+                "Customer id", "Name", "Username", "Password"
             }
         ) {
             Class[] types = new Class [] {
@@ -102,15 +103,15 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
 
-        UserAccountDirectory ua = this.library.getUserAccountDirectory();
+        UserAccountDirectory ua = this.app.getUad();
 
         if(ua.accountExists(fieldusername1.getText(), fieldPassword1.getText(), "customer")) {
             JOptionPane.showMessageDialog(null, "Sorry credentials are taken.");
         }
         else {
             // save the customer obj for user and useraccount credentials
-            UserAccount user = this.library.getUserAccountDirectory().createUserAccount(fieldusername1.getText(), fieldPassword1.getText(), "customer");
-            this.library.getCustomerDirectory().createCustomer(user.getAccountid(), fieldname1.getText());
+            UserAccount user = this.app.getUad().createUserAccount(fieldusername1.getText(), fieldPassword1.getText(), "customer");
+            this.app.getCustomerDirectory().createCustomer(user.getAccountid(), fieldname1.getText());
             populate();
         }
 
@@ -118,8 +119,8 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
     public void populate() {
         
         tableModel.setRowCount(0);
-        for(Customer c: this.library.getCustomerDirectory().getCustomerList()) {
-            UserAccount u = this.library.getUserAccountDirectory().findById(c.getPersonid());
+        for(Customer c: this.app.getCustomerDirectory().getCustomerList()) {
+            UserAccount u = this.app.getUad().findById(c.getPersonid());
             
             Object[] row = new Object[4];
             

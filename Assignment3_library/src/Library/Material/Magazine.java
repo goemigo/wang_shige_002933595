@@ -14,11 +14,10 @@ public class Magazine extends Material{
     private String company;
     private String issueType;
     
-    public Magazine(String name, Date registerDate, boolean isAvail, String c, String i){
+    public Magazine(String name, Date registerDate, String c, String i){
         super();
         this.name = name;
         this.registerDate = registerDate;
-        this.isAvailable = isAvail;
         this.company = c;
         this.issueType = i;
     }

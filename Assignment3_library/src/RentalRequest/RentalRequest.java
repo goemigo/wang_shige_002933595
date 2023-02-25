@@ -16,34 +16,28 @@ import Library.Material.Magazine;
 public class RentalRequest {
     private static int count = 0;
     private String id;
-    Customer customer;
-    private static int price = 100; //price no change
-    String status;
-    private int duration = 1; //default 1 week
+    private Customer customer;
     private Book book;
     private Magazine mag;
+    private int duration; //days
+    private static int price = 100; //price is fixed
+    private String status;
     private Library lib;
     
-    public RentalRequest(int duration, Book b, Magazine m, Library lib, Customer cus){
+    public RentalRequest(Customer cus, Book b, Magazine m, int duration, Library lib){
         this.count++;
         this.id = "RequestId" + this.count;
         
-//        this.customer = new Customer();
-        this.status = "Created";
-        
         this.customer = cus;
-        this.duration = duration;
         this.book = b;
-        this.mag = mag;
+        this.mag = m;
+        this.duration = duration;
+        this.status = "Created";
         this.lib = lib;
     }
 
-    public static int getPrice() {
+    public int getPrice() {
         return price;
-    }
-
-    public static void setPrice(int price) {
-        RentalRequest.price = price;
     }
 
     public Magazine getMag() {
@@ -61,8 +55,6 @@ public class RentalRequest {
     public void setLib(Library lib) {
         this.lib = lib;
     }
-    
-    
 
     public Customer getCustomer() {
         return customer;
@@ -70,15 +62,6 @@ public class RentalRequest {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        RentalRequest.count = count;
     }
 
     public String getId() {

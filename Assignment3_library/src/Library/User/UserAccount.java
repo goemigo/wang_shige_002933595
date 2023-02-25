@@ -4,7 +4,7 @@
  */
 package Library.User;
 
-import Library.Library;
+import AppSystem.AppSystem;
 import UI.AdminJFrame;
 import UI.BranchManagerJFrame;
 import UI.CustomerJFrame;
@@ -77,18 +77,18 @@ public class UserAccount {
     }
     
         
-    public JFrame getWorkArea(String role, Library l, UserAccount u){
+    public JFrame getWorkArea(String role, AppSystem app, UserAccount u){
         if (role.equals("admin")){
-            return new AdminJFrame(l,u);
+            return new AdminJFrame(app,u);
         }
         if (role.equals("customer")){
-            return new CustomerJFrame(l,u);
+            return new CustomerJFrame(app,u);
         }
         if (role.equals("librarian")){
-            return new LibrarianJFrame(l,u);
+            return new LibrarianJFrame(app,u);
         }
         if (role.equals("branch manager")){
-            return new BranchManagerJFrame(l,u);
+            return new BranchManagerJFrame(app,u);
         }
         return null;
         

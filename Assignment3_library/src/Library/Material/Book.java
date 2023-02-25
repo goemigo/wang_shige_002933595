@@ -19,11 +19,10 @@ public class Book extends Material{
     private String language;
     private String bindingType;
     
-    public Book(String name, Date registerDate, boolean isAvail, Author a, Genre g, int pages, String lang, String type){
+    public Book(String name, Date registerDate, Author a, Genre g, int pages, String lang, String type){
         super();
         this.name = name;
         this.registerDate = registerDate;
-        this.isAvailable = isAvail;
         this.author = a;
         this.genre = g;
         this.pages = pages;

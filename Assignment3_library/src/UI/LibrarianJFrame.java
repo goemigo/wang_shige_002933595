@@ -4,12 +4,15 @@
  */
 package UI;
 
+import AppSystem.AppSystem;
+import Branch.Branch;
 import Library.Author.Author;
 import Library.Material.Book;
 import Library.Genre.Genre;
 import Library.Library;
 import Library.User.UserAccount;
 import RentalRequest.RentalRequest;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,23 +25,28 @@ public class LibrarianJFrame extends javax.swing.JFrame {
     /**
      * Creates new form LibrarianJFrame
      */
-    private Library library;
+    private AppSystem app;
     private UserAccount ua;
-    DefaultTableModel tableModel;
+//    DefaultTableModel tableModel;
+    Branch currentBranch;
+    Library currentLib;
+    
     public LibrarianJFrame(){
         initComponents();
     }
     
-    public LibrarianJFrame(Library l, UserAccount ua) {
+    public LibrarianJFrame( AppSystem app, UserAccount ua) {
         initComponents();
         this.setVisible(true);
         
-        this.library = l;
+        this.app = app;
         this.ua = ua;
-        this.tableModel = (DefaultTableModel) jTable1.getModel();
+
+        this.currentBranch = app.getBranchDirectory().findBranchForEmployee(ua); 
+        this.currentLib = currentBranch.getLibrary();
         
-        populate();
-        
+        branchName.setText(this.currentBranch.getName());
+       
     }
 
     /**
@@ -50,65 +58,21 @@ public class LibrarianJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
         backBtn = new javax.swing.JButton();
+        materialBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        requestBtn = new javax.swing.JButton();
+        branchName = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 204));
 
-        jLabel1.setText("book title");
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jLabel2.setText("author");
-
-        jLabel3.setText("genre");
-
-        jButton1.setText("Add book");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "RequestID", "Book", "CustomerID", "Price", "Status"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton2.setText("Approve");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Deny");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backBtn.setText("LOGOUT");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -116,132 +80,67 @@ public class LibrarianJFrame extends javax.swing.JFrame {
                 backBtnActionPerformed(evt);
             }
         });
+        jPanel1.add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 100, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(421, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(56, 56, 56)
-                .addComponent(jButton3)
-                .addGap(141, 141, 141))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jButton1)
-                                .addGap(89, 89, 89)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        materialBtn.setText("Manage Material");
+        materialBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materialBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(materialBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel4.setText("Librarian Work Area for library");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 200, 30));
+
+        requestBtn.setText("Manage Rental Request");
+        requestBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(requestBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
+
+        branchName.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jPanel1.add(branchName, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 85, 26));
+
+        jSplitPane1.setLeftComponent(jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 770, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addComponent(jButton1)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(33, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jSplitPane1.setRightComponent(jPanel2);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void populate(){
-        tableModel.setRowCount(0);
-        for (RentalRequest rr : this.library.getMasterRentalRequestDirectory().getMasterRequestList()) {
-
-            Object[] row = new Object[5];
-
-            row[0] = rr;
-            row[1] = rr.getBook().getTitle();
-            row[2] = rr.getCustomer().getPersonid();
-            row[3] = rr.calTotalRentalprice();
-            row[4] = rr.getStatus();
-
-            tableModel.addRow(row);
-        }
-    }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String book = jTextField1.getText();
-        Author a = this.library.getAuthorDirectory().addAuthor(jTextField3.getText());
-        Genre g = this.library.getGenreDirectory().addGenre(jTextField2.getText());
-        
-        Book b = this.library.getBookDirectory().addBook(book,a,g);
-        
-        //add the author and genre to respective list
-        this.library.getAuthorDirectory().addAuthor(jTextField3.getText());
-        this.library.getGenreDirectory().addGenre(jTextField2.getText());
-        
-        JOptionPane.showMessageDialog(null, "book added");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = jTable1.getSelectedRow();
-        
-        RentalRequest rr = (RentalRequest) jTable1.getValueAt(selectedRow, 0);
-        rr.setStatus("Approved");
-        
-        //update table
-        populate();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-                int selectedRow = jTable1.getSelectedRow();
-        
-        RentalRequest rr = (RentalRequest) jTable1.getValueAt(selectedRow, 0);
-        rr.setStatus("Denied");
-        //update table
-        populate();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+ 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
 
         this.setVisible(false);
-        MainJFrame mj = new MainJFrame(this.library, this.ua);
+        MainJFrame mj = new MainJFrame(this.app);
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void materialBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialBtnActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new ManageMaterialJPanel(app,ua));
+    }//GEN-LAST:event_materialBtnActionPerformed
+
+    private void requestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestBtnActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new ManageRentalRequestJPanel(app,ua));
+    }//GEN-LAST:event_requestBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,16 +179,12 @@ public class LibrarianJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel branchName;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton materialBtn;
+    private javax.swing.JButton requestBtn;
     // End of variables declaration//GEN-END:variables
 }

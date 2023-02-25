@@ -4,6 +4,7 @@
  */
 package UI;
 
+import AppSystem.AppSystem;
 import Library.Library;
 import Library.User.UserAccount;
 import Library.User.UserAccountDirectory;
@@ -19,26 +20,25 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     
-    private Library library;
-    private UserAccountDirectory userAccountDirectory;
+    private AppSystem app;
+//    private UserAccount userAccount;
     
-    public MainJFrame() {
+    public MainJFrame(){ //this is for the first time admin login
         initComponents();
         
-        this.library = Library.getLibrary();
-        this.userAccountDirectory = library.getUserAccountDirectory();
+        this.app = AppSystem.getAppSystem();
         
         populateDropDown();
     }
     
-    public MainJFrame(Library l, UserAccount userAccount){
+    public MainJFrame(AppSystem app) { //this is for the page shows after logout, avoid init new App
         initComponents();
         this.setVisible(true);
         
-        this.library = l;
-        this.userAccountDirectory = library.getUserAccountDirectory();
+        this.app = app;
         
         populateDropDown();
+
     }
 
     /**
@@ -93,7 +93,7 @@ public class MainJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void populateDropDown(){
-        for (String role: this.library.getUserAccountDirectory().getAllRoles()){
+        for (String role: this.app.getUad().getAllRoles()){
             roleCombo.addItem(role);
         }
     }
@@ -104,10 +104,12 @@ public class MainJFrame extends javax.swing.JFrame {
         String password = fieldpass.getText();
         String role = (String) roleCombo.getSelectedItem();
 
-        if(this.userAccountDirectory.accountExists(username, password, role)){
-            UserAccount user = this.userAccountDirectory.getUserAccount(username, password, role);
+        if(this.app.getUad().accountExists(username, password, role)){
+            UserAccount user = this.app.getUad().getUserAccount(username, password, role);
             this.setVisible(false);
-            user.getWorkArea(role,library,user);
+            
+            //get work area panel
+            user.getWorkArea(role,app,user);
         }else{
             JOptionPane.showMessageDialog(null, "invalid credentials");
         }

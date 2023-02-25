@@ -18,8 +18,8 @@ public class MagazineDirectory {
         this.magazines = new ArrayList<Magazine>();
     }
     
-    public Magazine addMagazine(String name, Date registerDate, boolean isAvail, String c, String i){
-        Magazine mag = new Magazine(name, registerDate,isAvail, c, i);
+    public Magazine addMagazine(String name, Date registerDate, String c, String i){
+        Magazine mag = new Magazine(name, registerDate, c, i);
         this.magazines.add(mag);
         return mag;
     }

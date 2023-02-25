@@ -1,6 +1,7 @@
 package AppSystem;
 
 import Branch.Branch;
+import Branch.BranchDirectory;
 import Customer.CustomerDirectory;
 import Library.Employee.EmployeeDirectory;
 import Library.User.UserAccount;
@@ -17,11 +18,15 @@ import Library.User.UserAccountDirectory;
  */
 public class AppSystem {
     private CustomerDirectory customerDirectory;
-    Branch branch;   
+    BranchDirectory branchDirectory;   
+    UserAccountDirectory uad;
     
     public AppSystem(){
+        this.customerDirectory = new CustomerDirectory();
+        this.branchDirectory = new BranchDirectory();
+        this.uad = new UserAccountDirectory();
         
-        UserAccount user = this.getBranch().getUad().createUserAccount("admin", "admin", "admin");
+        UserAccount user = this.uad.createUserAccount("a", "a", "admin");
     }
     
     public static AppSystem getAppSystem(){
@@ -31,10 +36,19 @@ public class AppSystem {
     public CustomerDirectory getCustomerDirectory() {
         return customerDirectory;
     }
-
-    public Branch getBranch() {
-        return branch;
+    
+    public UserAccountDirectory getUad() {
+        return uad;
     }
+
+    public void setUad(UserAccountDirectory uad) {
+        this.uad = uad;
+    }
+
+    public BranchDirectory getBranchDirectory() {
+        return branchDirectory;
+    }
+    
     
     
 }

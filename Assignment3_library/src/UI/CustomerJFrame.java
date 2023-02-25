@@ -4,6 +4,8 @@
  */
 package UI;
 
+import AppSystem.AppSystem;
+import Branch.Branch;
 import Customer.Customer;
 import Library.Material.Book;
 import Library.Library;
@@ -21,7 +23,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
     /**
      * Creates new form CustomerJFrame
      */
-    private Library library;
+    private AppSystem app;
     private UserAccount ua;
     private RentalRequest rr;
     DefaultTableModel coltableModel;
@@ -31,13 +33,13 @@ public class CustomerJFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    public CustomerJFrame(Library l, UserAccount ua) {
+    public CustomerJFrame(AppSystem app, UserAccount ua) {
         initComponents();
         this.setVisible(true);
         this.coltableModel = (DefaultTableModel) jTable1.getModel();
         this.renttableModel = (DefaultTableModel) jTable2.getModel();
         
-        this.library = l;
+        this.app = app;
         this.ua = ua;
         
         populateCollection();
@@ -262,31 +264,32 @@ public class CustomerJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         this.setVisible(false);
-        MainJFrame mj = new MainJFrame(this.library, this.ua);
+        MainJFrame mj = new MainJFrame(this.app);
     }//GEN-LAST:event_backBtnActionPerformed
     
     public void populateCollection(){
         coltableModel.setRowCount(0);
-        for (Book b : this.library.getBookDirectory().getBooks()) {
+        for (Branch br: this.app.getBranchDirectory().getBranches()){
+            for (Book b : br.getLibrary().getBookDirectory().getBooks()) {
+                Object[] row = new Object[3];
 
-            Object[] row = new Object[3];
+                row[0] = b;
+                row[1] = b.getAuthor().getName();
+                row[2] = b.getGenre().getGenre();
 
-            row[0] = b;
-            row[1] = b.getAuthor().getName();
-            row[2] = b.getGenre().getGenre();
-
-            coltableModel.addRow(row);
-        }
+                coltableModel.addRow(row);
+            }  
+        }  
     }
     
     public void populateRental(){
         renttableModel.setRowCount(0);
-        for (RentalRequest rr : this.library.getCustomerDirectory().findById(ua.getAccountid()).getRequests()) {
+        for (RentalRequest rr : this.app.getCustomerDirectory().findById(ua.getAccountid()).getRequests()) {
 
             Object[] row = new Object[3];
 
             row[0] = rr;
-            row[1] = rr.getBook().getTitle();
+            row[1] = rr.getBook().getName();
             row[2] = rr.getStatus();
 
             renttableModel.addRow(row);
@@ -295,11 +298,11 @@ public class CustomerJFrame extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Customer c = this.library.getCustomerDirectory().findById(ua.getAccountid());
+        Customer c = this.app.getCustomerDirectory().findById(ua.getAccountid());
         String title = jTextField2.getText();
        
         // create order
-        rr = this.library.getMasterRentalRequestDirectory().requestRental(c);
+        rr = this.app.getMasterRentalRequestDirectory().requestRental(c);
         rr.setDuration(Integer.valueOf(jTextField1.getText()));
         rr.setBook(this.library.getBookDirectory().findBook(title));
         rr.calTotalRentalprice();
@@ -317,12 +320,12 @@ public class CustomerJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selctedRow = jTable1.getSelectedRow();
         Book selectedBook = (Book) jTable1.getValueAt(selctedRow, 0);
-        jTextField2.setText(selectedBook.getTitle());
+        jTextField2.setText(selectedBook.getName());
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Customer c = this.library.getCustomerDirectory().findById(ua.getAccountid());
+        Customer c = this.app.getCustomerDirectory().findById(ua.getAccountid());
         if(c.getRequests().size()>0){
             populateRental();
         }else{

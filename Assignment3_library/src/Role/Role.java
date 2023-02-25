@@ -4,6 +4,7 @@
  */
 package Role;
 
+import AppSystem.AppSystem;
 import Library.Library;
 import Library.User.UserAccount;
 import javax.swing.JFrame;
@@ -19,5 +20,5 @@ public abstract class Role {
         return roles;
     }
     
-    public abstract JFrame getWorkArea(Library l, UserAccount ua);
+//    public abstract JFrame getWorkArea(AppSystem app, UserAccount ua);
 }

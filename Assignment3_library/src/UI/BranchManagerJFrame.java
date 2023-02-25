@@ -4,6 +4,7 @@
  */
 package UI;
 
+import AppSystem.AppSystem;
 import Library.Library;
 import Library.User.UserAccount;
 
@@ -16,16 +17,16 @@ public class BranchManagerJFrame extends javax.swing.JFrame {
     /**
      * Creates new form BranchManagerJFrame
      */
-    private Library lib;
+    private AppSystem app;
     UserAccount ua;
     
     public BranchManagerJFrame() {
         initComponents();
     }
     
-    public BranchManagerJFrame(Library lib,UserAccount ua) {
+    public BranchManagerJFrame(AppSystem app,UserAccount ua) {
         initComponents();
-        this.lib = lib;
+        this.app = app;
         this.ua = ua;
         
         this.setVisible(true);

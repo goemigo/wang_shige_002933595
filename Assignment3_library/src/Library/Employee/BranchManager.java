@@ -8,6 +8,6 @@ package Library.Employee;
  *
  * @author emi
  */
-class Designation {
+public class BranchManager {
     
 }

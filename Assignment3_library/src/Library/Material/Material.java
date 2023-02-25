@@ -15,7 +15,7 @@ public class Material {
     private String serialNo;
     String name;
     Date registerDate;
-    Boolean isAvailable = true;
+    Boolean isAvailable = true; //default true when adding a material
     
     public Material(){
         this.serialNo = "ACC" + count++; 
