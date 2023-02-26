@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.LibrarianInterface;
+package UI.BranchManagerInterface;
 
+import UI.LibrarianInterface.*;
 import AppSystem.AppSystem;
 import Branch.Branch;
 import Library.Library;
@@ -15,18 +16,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author emi
  */
-public class ManageRentalRequestJPanel extends javax.swing.JPanel {
+public class BranchRentalRequestJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageRentalRequestJPanel
      */
     private AppSystem app;
     private UserAccount ua;
-    DefaultTableModel tableModel;
-    Branch currentBranch;
-    Library currentLib;
+    private DefaultTableModel tableModel;
+    private Branch currentBranch;
+    private Library currentLib;
     
-    public ManageRentalRequestJPanel(AppSystem app,UserAccount ua) {
+    public BranchRentalRequestJPanel(AppSystem app,UserAccount ua) {
         initComponents();
         this.setVisible(true);
         
@@ -38,6 +39,10 @@ public class ManageRentalRequestJPanel extends javax.swing.JPanel {
         this.currentLib = currentBranch.getLibrary();
         
         populate();
+        
+        //show total revenue for branch
+        int rev = calBranchRevenue();
+        fieldrev.setText(String.valueOf(rev));
     }
     
     public void populate(){
@@ -60,6 +65,17 @@ public class ManageRentalRequestJPanel extends javax.swing.JPanel {
             }
         }   
     }
+    
+    public int calBranchRevenue(){
+        int rev = 0;
+        for (RentalRequest rr : this.currentLib.getMasterRentalRequestDirectory().getMasterRequestList()) {
+            //only requests that are approved or returned count for revenue
+            if(rr.getStatus().equals("Approved") || rr.getStatus().equals("Returned")){
+                rev += rr.getPrice();
+            }
+        }
+        return rev;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,8 +88,8 @@ public class ManageRentalRequestJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         requestTable = new javax.swing.JTable();
-        approveBtn = new javax.swing.JButton();
-        denyBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        fieldrev = new javax.swing.JTextField();
 
         requestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,82 +109,43 @@ public class ManageRentalRequestJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(requestTable);
 
-        approveBtn.setText("Approve");
-        approveBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                approveBtnActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel1.setText("Total Revenue: ");
 
-        denyBtn.setText("Reject");
-        denyBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                denyBtnActionPerformed(evt);
-            }
-        });
+        fieldrev.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(254, 254, 254)
-                .addComponent(approveBtn)
-                .addGap(32, 32, 32)
-                .addComponent(denyBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(272, 272, 272)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fieldrev, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(denyBtn)
-                    .addComponent(approveBtn))
-                .addGap(30, 30, 30))
+                    .addComponent(jLabel1)
+                    .addComponent(fieldrev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void approveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveBtnActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = requestTable.getSelectedRow();
-
-        RentalRequest rr = (RentalRequest) requestTable.getValueAt(selectedRow, 0);
-        rr.setStatus("Approved");
-
-        //update table
-        populate();
-    }//GEN-LAST:event_approveBtnActionPerformed
-
-    private void denyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyBtnActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = requestTable.getSelectedRow();
-
-        RentalRequest rr = (RentalRequest) requestTable.getValueAt(selectedRow, 0);
-        rr.setStatus("Denied");
-        
-        //set the material avail to true in the selected request 
-        if(rr.getBook()!=null){
-            rr.getBook().setIsAvailable(true);
-        }
-        if(rr.getMag()!=null){
-            rr.getMag().setIsAvailable(true);
-        }
-        
-        //update table
-        populate();
-    }//GEN-LAST:event_denyBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton approveBtn;
-    private javax.swing.JButton denyBtn;
+    private javax.swing.JTextField fieldrev;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable requestTable;
     // End of variables declaration//GEN-END:variables

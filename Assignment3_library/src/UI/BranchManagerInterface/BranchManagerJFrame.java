@@ -5,8 +5,10 @@
 package UI.BranchManagerInterface;
 
 import AppSystem.AppSystem;
+import Branch.Branch;
 import Library.Library;
 import Library.User.UserAccount;
+import UI.Main.MainJFrame;
 
 /**
  *
@@ -18,7 +20,9 @@ public class BranchManagerJFrame extends javax.swing.JFrame {
      * Creates new form BranchManagerJFrame
      */
     private AppSystem app;
-    UserAccount ua;
+    private UserAccount ua;
+    private Branch currentBranch;
+    private Library currentLib;
     
     public BranchManagerJFrame() {
         initComponents();
@@ -26,10 +30,15 @@ public class BranchManagerJFrame extends javax.swing.JFrame {
     
     public BranchManagerJFrame(AppSystem app,UserAccount ua) {
         initComponents();
+        this.setVisible(true);
+        
         this.app = app;
         this.ua = ua;
+
+        this.currentBranch = app.getBranchDirectory().findBranchForEmployee(ua); 
+        this.currentLib = currentBranch.getLibrary();
         
-        this.setVisible(true);
+        branchName.setText(this.currentBranch.getName());
     }
 
     /**
@@ -41,21 +50,102 @@ public class BranchManagerJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        backBtn = new javax.swing.JButton();
+        requestBtn = new javax.swing.JButton();
+        requestBtn1 = new javax.swing.JButton();
+        branchName = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        backBtn.setText("LOGOUT");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
+        requestBtn.setText("View Rental Requests");
+        requestBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestBtnActionPerformed(evt);
+            }
+        });
+
+        requestBtn1.setText("View Branch Collection");
+        requestBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestBtn1ActionPerformed(evt);
+            }
+        });
+
+        branchName.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel4.setText("Branch");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111)
+                        .addComponent(requestBtn1))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(branchName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(requestBtn)))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(branchName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(requestBtn1)
+                    .addComponent(requestBtn))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
+
+        jSplitPane1.setTopComponent(jPanel1);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+
+        this.setVisible(false);
+        MainJFrame mj = new MainJFrame(this.app);
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void requestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestBtnActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new BranchRentalRequestJPanel(app,ua));
+    }//GEN-LAST:event_requestBtnActionPerformed
+
+    private void requestBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestBtn1ActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new BranchCollectionJPanel(app,ua));
+    }//GEN-LAST:event_requestBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,5 +183,12 @@ public class BranchManagerJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
+    private javax.swing.JLabel branchName;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton requestBtn;
+    private javax.swing.JButton requestBtn1;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,10 +29,10 @@ public class CustomerJFrame extends javax.swing.JFrame {
      */
     private AppSystem app;
     private UserAccount ua;
-    DefaultTableModel bookTableModel;
-    DefaultTableModel magTableModel;
-    DefaultTableModel renttableModel;
-    Customer c;
+    private DefaultTableModel bookTableModel;
+    private DefaultTableModel magTableModel;
+    private DefaultTableModel renttableModel;
+    private Customer c;
     
     public CustomerJFrame() {
         initComponents();
@@ -401,7 +401,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
 
                 Object[] row = new Object[7];
 
-                row[0] = rr;
+                row[0] = rr.getId();
                 row[1] = (rr.getBook() == null) ? "N/A" : rr.getBook().getName(); //there may not include a book or mag
                 row[2] = (rr.getMag() == null) ? "N/A" :rr.getMag().getName();
                 row[3] = rr.getDuration();
@@ -476,6 +476,11 @@ public class CustomerJFrame extends javax.swing.JFrame {
         //update status on rented book and magzine
         populateBook();
         populateMag();
+        
+        //clear fields
+        fieldbookSerial.setText("");
+        fieldmagSerial.setText("");
+        fieldduration.setText("");
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void fielddurationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fielddurationFocusLost
@@ -523,6 +528,9 @@ public class CustomerJFrame extends javax.swing.JFrame {
         populateBook();
         populateMag();
         populateRental();
+        
+        //clear the selected request id label
+        fieldbookSerial.setText("");
     }//GEN-LAST:event_returnBtnActionPerformed
 
     private void rrTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rrTableMouseClicked

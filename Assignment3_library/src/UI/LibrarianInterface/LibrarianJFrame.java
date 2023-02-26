@@ -29,8 +29,8 @@ public class LibrarianJFrame extends javax.swing.JFrame {
     private AppSystem app;
     private UserAccount ua;
 //    DefaultTableModel tableModel;
-    Branch currentBranch;
-    Library currentLib;
+    private Branch currentBranch;
+    private Library currentLib;
     
     public LibrarianJFrame(){
         initComponents();
@@ -92,8 +92,8 @@ public class LibrarianJFrame extends javax.swing.JFrame {
         jPanel1.add(materialBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jLabel4.setText("Librarian Work Area for  Branch");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 200, 30));
+        jLabel4.setText("Branch");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 70, 30));
 
         requestBtn.setText("Manage Rental Request");
         requestBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +104,8 @@ public class LibrarianJFrame extends javax.swing.JFrame {
         jPanel1.add(requestBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
         branchName.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jPanel1.add(branchName, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 85, 26));
+        branchName.setText("a");
+        jPanel1.add(branchName, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 85, 30));
 
         jSplitPane1.setLeftComponent(jPanel1);
 
