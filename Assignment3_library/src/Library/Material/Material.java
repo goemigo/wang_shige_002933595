@@ -18,15 +18,15 @@ public class Material {
     Boolean isAvailable = true; //default true when adding a material
     
     public Material(){
-        this.serialNo = "ACC" + count++; 
+        this.serialNo = "Serial" + count++; 
     }
     
-    public Material(String name, Date date, boolean isAvail){
-        this.serialNo = "Serial" + count++;
-        this.name = name;
-        this.registerDate = date;
-        this.isAvailable = isAvail;
-    }
+//    public Material(String name, Date date, boolean isAvail){
+//        this.serialNo = "Serial" + count++;
+//        this.name = name;
+//        this.registerDate = date;
+//        this.isAvailable = isAvail;
+//    }
 
     public String getSerialNo() {
         return serialNo;
@@ -60,6 +60,12 @@ public class Material {
         this.isAvailable = isAvailable;
     }
     
+    public String getAvailString(Boolean isAvail){
+        if (isAvail){
+            return "Y";
+        }
+        return "N";
+    }
     
     @Override
     public String toString(){

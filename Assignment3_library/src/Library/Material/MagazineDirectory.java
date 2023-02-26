@@ -36,4 +36,13 @@ public class MagazineDirectory {
         }
         return null;
     }
+    
+    public Magazine findMagBySerial(String magserial){
+        for (Magazine m: magazines){
+            if (m.getSerialNo().equals(magserial)){
+                return m;
+            }
+        }
+        return null;
+    }
 }

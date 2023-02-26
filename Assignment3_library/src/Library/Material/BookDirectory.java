@@ -40,5 +40,14 @@ public class BookDirectory {
         return null;
     }
     
+    public Book findBookBySerial(String bookserial){
+        for (Book b: books){
+            if (b.getSerialNo().equals(bookserial)){
+                return b;
+            }
+        }
+        return null;
+    }
+    
     
 }

@@ -175,7 +175,7 @@
                 <Column editable="true" title="Name" type="java.lang.String"/>
                 <Column editable="true" title="Experience" type="java.lang.Integer"/>
                 <Column editable="true" title="Designation" type="java.lang.String"/>
-                <Column editable="true" title="Library" type="java.lang.Object"/>
+                <Column editable="true" title="Branch" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

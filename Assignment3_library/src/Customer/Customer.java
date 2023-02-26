@@ -35,5 +35,12 @@ public class Customer extends Person{
         return requests;
     }
     
-    
+    public RentalRequest findRequest(String id){
+        for (RentalRequest rr: this.requests){
+            if (rr.getId().equals(id)){
+                return rr;
+            }
+        }
+        return null;
+    }
 }

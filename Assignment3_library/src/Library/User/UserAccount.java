@@ -5,10 +5,10 @@
 package Library.User;
 
 import AppSystem.AppSystem;
-import UI.AdminJFrame;
-import UI.BranchManagerJFrame;
-import UI.CustomerJFrame;
-import UI.LibrarianJFrame;
+import UI.AdminInterface.AdminJFrame;
+import UI.BranchManagerInterface.BranchManagerJFrame;
+import UI.CustomerInterface.CustomerJFrame;
+import UI.LibrarianInterface.LibrarianJFrame;
 import javax.swing.JFrame;
 
 /**

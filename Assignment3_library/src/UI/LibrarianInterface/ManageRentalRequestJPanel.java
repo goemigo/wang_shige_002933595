@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI;
+package UI.LibrarianInterface;
 
 import AppSystem.AppSystem;
 import Branch.Branch;
@@ -80,7 +80,7 @@ public class ManageRentalRequestJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Request Id", "Customer Id", "Book", "Magazine", "Duration(days)", "Price", "Status", "Library"
+                "Request Id", "Customer Id", "Book", "Magazine", "Duration", "Price", "Status", "Library"
             }
         ) {
             Class[] types = new Class [] {

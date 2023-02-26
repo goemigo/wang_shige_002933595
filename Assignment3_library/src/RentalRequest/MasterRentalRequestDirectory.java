@@ -24,5 +24,5 @@ public class MasterRentalRequestDirectory {
     public ArrayList<RentalRequest> getMasterRequestList() {
         return masterRequestList;
     }
-    
+
 }

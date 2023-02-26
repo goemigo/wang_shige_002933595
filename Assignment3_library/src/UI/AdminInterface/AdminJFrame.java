@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package UI;
+package UI.AdminInterface;
 
+import UI.AdminInterface.CustomerManagementPanel;
+import UI.AdminInterface.EmployeeManagementPanel;
 import AppSystem.AppSystem;
 import Library.Library;
 import Library.User.UserAccount;
-import UI.MainJFrame;
+import UI.AdminInterface.BranchManagementPanel;
+import UI.Main.MainJFrame;
+import UI.Main.MainJFrame;
 
 /**
  *

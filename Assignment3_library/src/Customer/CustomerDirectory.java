@@ -4,6 +4,9 @@
  */
 package Customer;
 
+import Branch.Branch;
+import Library.Employee.Employee;
+import Library.User.UserAccount;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +14,7 @@ import java.util.ArrayList;
  * @author emi
  */
 public class CustomerDirectory {
-        ArrayList<Customer> customerList;
+    ArrayList<Customer> customerList;
     
     public CustomerDirectory(){
         this.customerList = new ArrayList<Customer>();
@@ -39,4 +42,5 @@ public class CustomerDirectory {
         this.customerList.add(c);
         return c;
     }
+
 }

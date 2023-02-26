@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI;
+package UI.AdminInterface;
 
 import AppSystem.AppSystem;
 import Branch.Branch;
@@ -134,7 +134,6 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
         jLabel8.setText("library branch");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, 20));
 
-        branchCombo.setSelectedIndex(-1);
         branchCombo.setToolTipText("");
         add(branchCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 120, 30));
         add(fieldexp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 120, 30));
@@ -150,7 +149,7 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Employee Id", "Name", "Experience", "Designation", "Library"
+                "Employee Id", "Name", "Experience", "Designation", "Branch"
             }
         ) {
             Class[] types = new Class [] {

@@ -5,6 +5,8 @@
 package Branch;
 
 import Library.Employee.Employee;
+import Library.Material.Book;
+import Library.Material.Magazine;
 import Library.User.UserAccount;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -48,6 +50,23 @@ public class BranchDirectory {
             for (Employee e: b.getLibrary().getEmployeeDirectory().getEmployees()){
                 if (e.getEmployeeId().equals(ua.getAccountid())){
                     return b;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public Branch findBranchByMaterial(String serial){
+        
+        for (Branch br: branches){
+            for (Book b: br.getLibrary().getBookDirectory().getBooks()){
+                if (b.getSerialNo().equals(serial)){
+                    return br;
+                }
+            }
+            for (Magazine m: br.getLibrary().getMagazineDirectory().getMagazines()){
+                if (m.getSerialNo().equals(serial)){
+                    return br;
                 }
             }
         }

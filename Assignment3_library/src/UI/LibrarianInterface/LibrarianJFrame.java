@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package UI;
+package UI.LibrarianInterface;
 
 import AppSystem.AppSystem;
 import Branch.Branch;
@@ -12,6 +12,7 @@ import Library.Genre.Genre;
 import Library.Library;
 import Library.User.UserAccount;
 import RentalRequest.RentalRequest;
+import UI.Main.MainJFrame;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -91,7 +92,7 @@ public class LibrarianJFrame extends javax.swing.JFrame {
         jPanel1.add(materialBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jLabel4.setText("Librarian Work Area for library");
+        jLabel4.setText("Librarian Work Area for  Branch");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 200, 30));
 
         requestBtn.setText("Manage Rental Request");
