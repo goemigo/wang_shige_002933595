@@ -5,6 +5,7 @@
 package Library.User;
 
 import AppSystem.AppSystem;
+import Role.Role;
 import UI.AdminInterface.AdminJFrame;
 import UI.BranchManagerInterface.BranchManagerJFrame;
 import UI.CustomerInterface.CustomerJFrame;
@@ -20,17 +21,17 @@ public class UserAccount {
     private String accountid;
     private String username;
     private String password; 
-    private String role;
+    private Role role;
     
-    public UserAccount(){
-        this.accountid = "ACC" + count++; //for when there is no actual user
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
+//    public UserAccount(){
+//        this.accountid = "ACC" + count++; //for when there is no actual user
+//        this.username = username;
+//        this.password = password;
+//        this.role = role;
+//    }
     
-    public UserAccount(String username, String password, String role){ //for when real users register
-        this.accountid = role + count++;
+    public UserAccount(String username, String password, Role role){
+        this.accountid = "user" + count++;
         this.username = username;
         this.password = password;
         this.role = role;
@@ -68,30 +69,30 @@ public class UserAccount {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
     
         
-    public JFrame getWorkArea(String role, AppSystem app, UserAccount u){
-        if (role.equals("admin")){
-            return new AdminJFrame(app,u);
-        }
-        if (role.equals("customer")){
-            return new CustomerJFrame(app,u);
-        }
-        if (role.equals("librarian")){
-            return new LibrarianJFrame(app,u);
-        }
-        if (role.equals("branch manager")){
-            return new BranchManagerJFrame(app,u);
-        }
-        return null;
-        
-    }
+//    public JFrame getWorkArea(String role, AppSystem app, UserAccount u){
+//        if (role.equals("admin")){
+//            return new AdminJFrame(app,u);
+//        }
+//        if (role.equals("customer")){
+//            return new CustomerJFrame(app,u);
+//        }
+//        if (role.equals("librarian")){
+//            return new LibrarianJFrame(app,u);
+//        }
+//        if (role.equals("branch manager")){
+//            return new BranchManagerJFrame(app,u);
+//        }
+//        return null;
+//        
+//    }
     
 }

@@ -12,6 +12,8 @@ import Library.Employee.Librarian;
 import Library.Library;
 import Library.User.UserAccount;
 import Library.User.UserAccountDirectory;
+import Role.BranchManagerRole;
+import Role.LibrarianRole;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -188,12 +190,17 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
         }
         //create user account and employee profile
         else {
-            UserAccount user = uad.createUserAccount(userName, pass, role);
-            
-            Library lib = this.app.getBranchDirectory().findBranch(branch).getLibrary();
-            
-            lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid(), lib);
-            
+            if (role.equals("librarian")){
+                UserAccount user = uad.createUserAccount(userName, pass, new LibrarianRole());
+                Library lib = this.app.getBranchDirectory().findBranch(branch).getLibrary();
+                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid(), lib);
+                
+            } else if(role.equals("branch manager")){
+                UserAccount user = uad.createUserAccount(userName, pass, new BranchManagerRole());
+                Library lib = this.app.getBranchDirectory().findBranch(branch).getLibrary();
+                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid(), lib);
+                
+            }
             populateTable();
         }
     }//GEN-LAST:event_addBtnActionPerformed

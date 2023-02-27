@@ -9,6 +9,7 @@ import Customer.Customer;
 import Library.Library;
 import Library.User.UserAccount;
 import Library.User.UserAccountDirectory;
+import Role.CustomerRole;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -114,7 +115,7 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
         }
         else {
             // save the customer obj for user and useraccount credentials
-            UserAccount user = uad.createUserAccount(userName,pass , "customer");
+            UserAccount user = uad.createUserAccount(userName,pass , new CustomerRole());
             this.app.getCustomerDirectory().createCustomer(user.getAccountid(), name);
             populate();
         }

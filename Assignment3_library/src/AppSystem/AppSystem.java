@@ -6,6 +6,7 @@ import Customer.CustomerDirectory;
 import Library.Employee.EmployeeDirectory;
 import Library.User.UserAccount;
 import Library.User.UserAccountDirectory;
+import Role.AdminRole;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -26,7 +27,7 @@ public class AppSystem {
         this.branchDirectory = new BranchDirectory();
         this.uad = new UserAccountDirectory();
         
-        UserAccount user = this.uad.createUserAccount("a", "a", "admin");
+        UserAccount user = this.uad.createUserAccount("a", "a", new AdminRole());
     }
     
     public static AppSystem getAppSystem(){

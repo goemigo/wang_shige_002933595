@@ -28,7 +28,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         this.app = AppSystem.getAppSystem();
         
-        populateDropDown();
+//        populateDropDown();
     }
     
     public MainJFrame(AppSystem app) { //this is for the page shows after logout, avoid init new App
@@ -37,7 +37,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         this.app = app;
         
-        populateDropDown();
+//        populateDropDown();
 
     }
 
@@ -52,12 +52,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnlogin = new javax.swing.JButton();
-        roleCombo = new javax.swing.JComboBox<>();
         fieldpass = new javax.swing.JTextField();
         fieldusername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,20 +68,16 @@ public class MainJFrame extends javax.swing.JFrame {
                 btnloginActionPerformed(evt);
             }
         });
-        jPanel1.add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 120, -1));
-
-        jPanel1.add(roleCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 120, -1));
+        jPanel1.add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 120, -1));
         jPanel1.add(fieldpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 121, -1));
         jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 121, -1));
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 3, 13)); // NOI18N
         jLabel1.setText("Welcome to Library management system");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 300, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 300, -1));
 
         jLabel2.setText("password");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, 20));
-
-        jLabel3.setText("role");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 60, 20));
 
         jLabel5.setText("username");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, 20));
@@ -92,24 +86,25 @@ public class MainJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void populateDropDown(){
-        for (String role: this.app.getUad().getAllRoles()){
-            roleCombo.addItem(role);
-        }
-    }
+//    public void populateDropDown(){
+//        for (String role: this.app.getUad().getAllRoles()){
+//            roleCombo.addItem(role);
+//        }
+//    }
     
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         // TODO add your handling code here:
         String username = fieldusername.getText();
         String password = fieldpass.getText();
-        String role = (String) roleCombo.getSelectedItem();
+//        String role = (String) roleCombo.getSelectedItem();
 
-        if(this.app.getUad().accountExists(username, password, role)){
-            UserAccount user = this.app.getUad().getUserAccount(username, password, role);
+        if(this.app.getUad().accountExists(username, password)){
+            UserAccount user = this.app.getUad().getUserAccount(username, password);
             this.setVisible(false);
             
             //get work area panel
-            user.getWorkArea(role,app,user);
+//            user.getWorkArea(role,app,user);
+            user.getRole().getWorkArea(app, user);
         }else{
             JOptionPane.showMessageDialog(null, "invalid credentials");
         }
@@ -157,9 +152,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField fieldusername;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> roleCombo;
     // End of variables declaration//GEN-END:variables
 }
