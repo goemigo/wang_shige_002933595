@@ -5,8 +5,8 @@
 package Library;
 
 import Library.Employee.Librarian;
-import Library.User.UserAccountDirectory;
-import Library.User.UserAccount;
+import User.UserAccountDirectory;
+import User.UserAccount;
 import Library.Genre.GenreDirectory;
 import Library.Material.BookDirectory;
 import Library.Author.AuthorDirectory;

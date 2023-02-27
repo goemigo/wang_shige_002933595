@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Library.User;
+package User;
 
-import Library.User.UserAccount;
+import User.UserAccount;
 import Role.Role;
 import java.util.ArrayList;
 

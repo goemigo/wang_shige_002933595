@@ -5,8 +5,8 @@
 package Branch;
 
 import Library.Library;
-import Library.User.UserAccount;
-import Library.User.UserAccountDirectory;
+import User.UserAccount;
+import User.UserAccountDirectory;
 
 /**
  *

@@ -6,7 +6,7 @@ package UI.AdminInterface;
 
 import AppSystem.AppSystem;
 import Branch.Branch;
-import Library.User.UserAccount;
+import User.UserAccount;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 

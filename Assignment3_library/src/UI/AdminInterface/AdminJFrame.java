@@ -8,7 +8,7 @@ import UI.AdminInterface.CustomerManagementPanel;
 import UI.AdminInterface.EmployeeManagementPanel;
 import AppSystem.AppSystem;
 import Library.Library;
-import Library.User.UserAccount;
+import User.UserAccount;
 import UI.AdminInterface.BranchManagementPanel;
 import UI.Main.MainJFrame;
 import UI.Main.MainJFrame;

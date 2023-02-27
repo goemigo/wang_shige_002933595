@@ -6,8 +6,8 @@ package UI.Main;
 
 import AppSystem.AppSystem;
 import Library.Library;
-import Library.User.UserAccount;
-import Library.User.UserAccountDirectory;
+import User.UserAccount;
+import User.UserAccountDirectory;
 import javax.swing.JOptionPane;
 
 /**

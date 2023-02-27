@@ -7,7 +7,7 @@ package UI.BranchManagerInterface;
 import AppSystem.AppSystem;
 import Branch.Branch;
 import Library.Library;
-import Library.User.UserAccount;
+import User.UserAccount;
 import UI.Main.MainJFrame;
 
 /**

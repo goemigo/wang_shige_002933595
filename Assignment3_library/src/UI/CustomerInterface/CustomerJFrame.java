@@ -10,7 +10,7 @@ import Customer.Customer;
 import Library.Material.Book;
 import Library.Library;
 import Library.Material.Magazine;
-import Library.User.UserAccount;
+import User.UserAccount;
 import RentalRequest.RentalRequest;
 import UI.Main.MainJFrame;
 import java.text.SimpleDateFormat;

@@ -5,7 +5,7 @@
 package Role;
 
 import AppSystem.AppSystem;
-import Library.User.UserAccount;
+import User.UserAccount;
 import UI.AdminInterface.AdminJFrame;
 import UI.BranchManagerInterface.BranchManagerJFrame;
 import javax.swing.JFrame;
