@@ -193,12 +193,12 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
             if (role.equals("librarian")){
                 UserAccount user = uad.createUserAccount(userName, pass, new LibrarianRole());
                 Library lib = this.app.getBranchDirectory().findBranch(branch).getLibrary();
-                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid(), lib);
+                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid());
                 
             } else if(role.equals("branch manager")){
                 UserAccount user = uad.createUserAccount(userName, pass, new BranchManagerRole());
                 Library lib = this.app.getBranchDirectory().findBranch(branch).getLibrary();
-                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid(), lib);
+                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid());
                 
             }
             populateTable();

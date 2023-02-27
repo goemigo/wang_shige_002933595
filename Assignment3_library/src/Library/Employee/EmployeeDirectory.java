@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class EmployeeDirectory {
     ArrayList<Employee> employees;
-    private Library lib;
+//    private Library lib;
     
     public EmployeeDirectory(){
         this.employees = new ArrayList<Employee>();
@@ -22,22 +22,22 @@ public class EmployeeDirectory {
         return employees;
     }
     
-    public Employee createEmployee(int exp, String des,String name,String id, Library lib){
+    public Employee createEmployee(int exp, String des,String name,String id){
         Employee e = new Employee(exp,des,id);
         
         e.setPersonid(e.getEmployeeId());
         e.setName(name);
         
-        e.setLibrary(lib);
-        this.lib = lib;
+//        e.setLibrary(lib);
+//        this.lib = lib;
         
         this.employees.add(e);
         return e;
     }
 
-    public Library getLib() {
-        return lib;
-    }
+//    public Library getLib() {
+//        return lib;
+//    }
     
     
 }

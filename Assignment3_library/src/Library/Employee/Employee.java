@@ -18,7 +18,7 @@ public class Employee extends Person{
     private int experience;
     private String designation; //librarian or branch manager
     
-    private Library lib; //employee belongs to a certain library
+//    private Library lib; //employee belongs to a certain library
     
 //    public Employee(){
 //        super();
@@ -33,9 +33,9 @@ public class Employee extends Person{
         this.designation = des;
     }
     
-    public void setLibrary(Library lib){
-        this.lib = lib;
-    }
+//    public void setLibrary(Library lib){
+//        this.lib = lib;
+//    }
 
     public String getEmployeeId() {
         return employeeId;
