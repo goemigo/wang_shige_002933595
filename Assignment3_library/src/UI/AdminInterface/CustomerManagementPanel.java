@@ -57,6 +57,7 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 204, 153));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         add(fieldusername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 120, 30));
         add(fieldPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 120, 30));
@@ -103,15 +104,18 @@ public class CustomerManagementPanel extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
 
-        UserAccountDirectory ua = this.app.getUad();
-
-        if(ua.accountExists(fieldusername1.getText(), fieldPassword1.getText(), "customer")) {
+        UserAccountDirectory uad = this.app.getUad();
+        String userName =  fieldusername1.getText();
+        String pass = fieldPassword1.getText();
+        String name = fieldname1.getText();
+        
+        if(!uad.checkUserNameUnique(userName)) {
             JOptionPane.showMessageDialog(null, "Sorry credentials are taken.");
         }
         else {
             // save the customer obj for user and useraccount credentials
-            UserAccount user = this.app.getUad().createUserAccount(fieldusername1.getText(), fieldPassword1.getText(), "customer");
-            this.app.getCustomerDirectory().createCustomer(user.getAccountid(), fieldname1.getText());
+            UserAccount user = uad.createUserAccount(userName,pass , "customer");
+            this.app.getCustomerDirectory().createCustomer(user.getAccountid(), name);
             populate();
         }
 

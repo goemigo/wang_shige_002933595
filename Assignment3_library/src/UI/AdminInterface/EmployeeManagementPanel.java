@@ -61,13 +61,15 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
             if (b.getLibrary().getEmployeeDirectory().getEmployees().size()>0){
                 for (Employee e: b.getLibrary().getEmployeeDirectory().getEmployees()){
                 
-                Object[] row = new Object[5];
+                Object[] row = new Object[7];
             
                 row[0] = e;
                 row[1] = e.getName();
-                row[2] = e.getExperience();
-                row[3] = e.getDesignation();
-                row[4] = b;
+                row[2] = this.app.getUad().findById(e.getEmployeeId()).getUsername();
+                row[3] = this.app.getUad().findById(e.getEmployeeId()).getPassword();
+                row[4] = e.getExperience();
+                row[5] = e.getDesignation();
+                row[6] = b;
                 
                 empTableModel.addRow(row);
                 }
@@ -101,10 +103,11 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         empTable = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 204, 153));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(fieldusername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 120, 30));
-        add(fieldPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 120, 30));
-        add(fieldname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 120, 30));
+        add(fieldusername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, 30));
+        add(fieldPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 120, 30));
+        add(fieldname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 120, 30));
 
         addBtn.setText("Add Employee");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -115,45 +118,45 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
         add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
 
         jLabel5.setText("designation");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, 20));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, 20));
 
         jLabel2.setText("password");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, 20));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
 
         jLabel6.setText("username");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, 20));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, 20));
 
         comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "librarian", "branch manager" }));
         comboRole.setSelectedIndex(-1);
         comboRole.setToolTipText("");
-        add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 120, 30));
+        add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 120, 30));
 
         jLabel7.setText("name");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, 20));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, 20));
 
         jLabel8.setText("library branch");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, 20));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, 20));
 
         branchCombo.setToolTipText("");
-        add(branchCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 120, 30));
-        add(fieldexp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 120, 30));
+        add(branchCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 120, 30));
+        add(fieldexp, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 120, 30));
 
         jLabel9.setText("experience");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, 20));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, 20));
 
         empTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Employee Id", "Name", "Experience", "Designation", "Branch"
+                "Employee Id", "Name", "Username", "password", "Experience", "Designation", "Branch"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -162,7 +165,7 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(empTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 400, 320));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 520, 320));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
@@ -180,7 +183,7 @@ public class EmployeeManagementPanel extends javax.swing.JPanel {
         String branch = (String) branchCombo.getSelectedItem();
         
         //check user account unique
-        if(uad.accountExists(userName,pass , role)) {
+        if(!uad.checkUserNameUnique(userName)) {
             JOptionPane.showMessageDialog(null, "Sorry credentials are taken.");
         }
         //create user account and employee profile

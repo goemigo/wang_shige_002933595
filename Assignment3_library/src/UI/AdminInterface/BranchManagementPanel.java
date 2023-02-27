@@ -69,6 +69,8 @@ public class BranchManagementPanel extends javax.swing.JPanel {
         filedBuilding = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 204, 153));
+
         addBtn.setText("Add Branch");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +192,8 @@ public class BranchManagementPanel extends javax.swing.JPanel {
         
         if (this.app.getBranchDirectory().getBranches().size()>0){
             populate();
+        }else{
+            tableModel.setRowCount(0); //if no branch is left in directory, clear the table
         }
         
     }//GEN-LAST:event_delBtnActionPerformed

@@ -91,6 +91,8 @@ public class BranchRentalRequestJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         fieldrev = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(204, 204, 255));
+
         requestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

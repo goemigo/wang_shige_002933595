@@ -53,6 +53,15 @@ public class UserAccountDirectory {
         return false;
     }
     
+    public Boolean checkUserNameUnique(String username){
+        for (UserAccount u:this.useraccountlist){
+            if(u.getUsername().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public String[] getAllRoles() {
        return Role.getRoles();
     }

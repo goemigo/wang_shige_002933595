@@ -110,6 +110,8 @@ public class BranchCollectionJPanel extends javax.swing.JPanel {
         magTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(204, 204, 255));
+
         jLabel6.setText("Book Collection:");
 
         bookTable.setModel(new javax.swing.table.DefaultTableModel(

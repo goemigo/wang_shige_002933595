@@ -73,6 +73,8 @@ public class ManageMaterialJPanel extends javax.swing.JPanel {
         addBtn = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 204, 204));
+
         jLabel10.setText("Issue type");
 
         bindingCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Saddle stitch", "Hardcover", "Interscrew" }));

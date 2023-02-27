@@ -75,6 +75,8 @@ public class ManageRentalRequestJPanel extends javax.swing.JPanel {
         approveBtn = new javax.swing.JButton();
         denyBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 204, 204));
+
         requestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
